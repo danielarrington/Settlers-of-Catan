@@ -104,7 +104,7 @@ void takeTurn(vector<Player*> &players, int z)
     
 void resources(vector<Player*> &players, int z)
 {
-    cout << " Wood( " << players.at(z)->getWood() << " ) Bricks (" << players.at(z)->getBricks() << ") Grain (" << players.at(z)->getGrain() << ") Wool (" << players.at(z)->getWool() << ") Ore (" << players.at(z)->getOre() << endl;
+    cout << " Wood(" << players.at(z)->getWood() << ") Bricks (" << players.at(z)->getBricks() << ") Grain (" << players.at(z)->getGrain() << ") Wool (" << players.at(z)->getWool() << ") Ore (" << players.at(z)->getOre() << ")" << endl;
     
 }
 
