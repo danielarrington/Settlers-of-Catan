@@ -375,8 +375,12 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         cout << "3: End Turn" << endl;
         cin >> choice;
     }
+<<<<<<< HEAD
     
     //Fork to follow if user chooses to buy
+=======
+    cout << "lmao" << endl;
+>>>>>>> 34bfcf083d641717f6d8fd9a8f082bff6b75fe43
     if (choice == 1)
     {
         cout << "What would you like to buy?" << endl;
