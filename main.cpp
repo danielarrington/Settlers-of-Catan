@@ -16,7 +16,7 @@ void buildIsland(vector<Tile*> &island, int size)
 
 void renderIsland(vector<Tile*> island, int size)
 {
-    for (int s = 0; s <= size; s++)
+    for (int s = 0; s < size; s++)
     {
         for (int i = 0; i <= 6; i++)
         {
@@ -52,13 +52,6 @@ void initializePlayers(vector<Player*> &players, int playerCount)
             cout << ", " << players.at(i)->getName();
         }
     }
-}
-
-int rollDice(vector<Player*> &players, int z)
-{
-    int diceRolled = (rand() % 11 + 2);
-    cout << "Player " << players.at(z)->getName() << " rolled a " << diceRolled << "!";
-    return diceRolled;
 }
 
 void takeTurn(vector<Player*> &players, int z)
@@ -155,7 +148,7 @@ int main()
     {
         cout << players.at(z)->getName() << " turn." << endl;
         resources(players, z);
-        roll = rollDice;
+        roll = (rand() % 11 + 2);
         takeTurn(players, z);
         
     }
