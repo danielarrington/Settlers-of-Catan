@@ -98,6 +98,7 @@ SettledTile::SettledTile(LandType l, int n, int o){
 // Need to add rendering for player settlement
 string SettledTile::render(int line){
     stringstream ss;
+    stringstream ss2;
     switch(line){
         case 0: return " ___________ ";
         case 1: 
@@ -130,7 +131,9 @@ string SettledTile::render(int line){
         case 2: return "|    ___    |";
         case 3: return "|   /   \\   |";
         case 4: return "|   |___|   |";
-        case 5: return "|           |";
+        case 5: 
+            ss2 << "|     " << owner << "     |";
+            return ss2.str();
         case 6: return "|___________|";
         default:
             return " ";

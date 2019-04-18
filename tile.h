@@ -15,6 +15,7 @@ class Tile{
     LandType land;
     // describes the tile's number
     int number;
+    // describes the tile's owner
     int owner;
     
     public:
