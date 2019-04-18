@@ -65,6 +65,7 @@ void takeTurn(vector<Player*> &players, int z)
         cout << "1: Buy, 2: Trade, 3: End Turn";
         cin >> choice;
     }
+    cout << "lmao" << endl;
     if (choice == 1)
     {
         cout << " What would you like to buy?";
