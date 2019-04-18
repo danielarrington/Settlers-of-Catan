@@ -121,7 +121,7 @@ int main()
 {
     int size;
     int playerCount;
-    int roll;
+    int roll = 0;
     
     vector<Tile*> island;
     vector<Player*> players;
