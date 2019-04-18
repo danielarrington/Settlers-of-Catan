@@ -15,6 +15,7 @@ class Tile{
     LandType land;
     // describes the tile's number
     int number;
+    int owner;
     
     public:
     // Mutators and Accessors
@@ -36,7 +37,7 @@ class EmptyTile : public Tile{
 class SettledTile : public Tile{
     public:
     // Need to add parameter to pass in which player established settlement
-    SettledTile(LandType, int);
+    SettledTile(LandType, int, int);
     // Need to add rendering for player settlement
     string render(int);
     
