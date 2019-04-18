@@ -21,8 +21,10 @@ class Tile{
     // Mutators and Accessors
     void setLand(LandType);
     void setNumber(int);
+    void setOwner(int);
     LandType getLand();
     int getNumber();
+    int getOwner();
     
     // virtual function to render the tile's image in the terminal
     virtual string render(int); 
