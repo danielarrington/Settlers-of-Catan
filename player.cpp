@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Player::Player(string name, int wood, int bricks, int grain, int wool, int ore)
+Player::Player(string name, int wood, int bricks, int grain, int wool, int ore, int victoryPoints)
 {
     this->name = name;
     this->wood = wood;
@@ -11,6 +11,7 @@ Player::Player(string name, int wood, int bricks, int grain, int wool, int ore)
     this->grain = grain;
     this->wool = wool;
     this->ore = ore;
+    this->victoryPoints = victoryPoints;
 }
 
 string Player::getName()
@@ -42,7 +43,10 @@ int Player::getOre()
 {
     return ore;
 }
-
+int Player::getVictoryPoints()
+{
+    return victoryPoints;
+}
 void Player::modifyWood(int w)
 {
     wood = wood + w;
@@ -66,4 +70,8 @@ void Player::modifyWool(int wo)
 void Player::modifyOre(int o)
 {
     ore = ore + o;
+}
+void Player::modifyVictoryPoints(int vp)
+{
+    victoryPoints = victoryPoints + vp;
 }
