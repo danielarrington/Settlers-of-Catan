@@ -5,12 +5,29 @@
 
 using namespace std;
 
-void buildIsland(vector<Tile*> &island, int size)
+void buildIsland(vector<Tile*> &island, int size, int playerCount)
 {
-    int type;
-    for (int i = 0; i < (size * size); i++)
+    for (int i = 0; i < (size * size) - playerCount; i++)
     {
-        island.push_back(new EmptyTile((LandType)(rand() % 5), (rand() % 11 + 2))); // I think theres an error with the pushback of the island
+        island.push_back(new EmptyTile((LandType)(rand() % 5), (rand() % 11 + 2)));
+    }
+    for (int i = 1; i <= playerCount; i++)
+    {
+        island.push_back(new SettledTile((LandType)(rand() % 5), (rand() % 11 + 2), i));
+    }
+}
+
+void shuffleIsland(vector<Tile*> &island)
+{
+    Tile* temp;
+    int i1, i2;
+    for (int i = 0; i < 1000; i++)
+    {
+        i1 = rand() % island.size();
+        i2 = rand() % island.size();
+        temp = island.at(i1);
+        island.at(i1) = island.at(i2);
+        island.at(i2) = temp;
     }
 }
 
@@ -54,26 +71,40 @@ void initializePlayers(vector<Player*> &players, int playerCount)
     }
 }
 
-void takeTurn(vector<Player*> &players, int z)
+void takeTurn(vector<Player*> &players, int player, int size)
 {
-    int choice;
+    int choice; //Variable to store user menu input
+    int row, column; //Variables which store inputs for row and column
+    int index; //Variable which stores calculated index in the island vector
+    
+    //Prompt user for move choice
     cout << "What would you like to do?" << endl;
+    cout << "1: Buy" << endl;
+    cout << "2: Trade" << endl;
+    cout << "3: End Turn" << endl;
     cin >> choice;
+    
+    //Test to ensure input is valid
     while (choice < 1 || choice > 3)
     {
         cout << "INVALID CHOICE!" << endl;
-        cout << "1: Buy, 2: Trade, 3: End Turn";
+        cout << "1: Buy" << endl;
+        cout << "2: Trade" << endl;
+        cout << "3: End Turn" << endl;
         cin >> choice;
     }
+    
+    //Fork to follow if user chooses to buy
     if (choice == 1)
     {
-        cout << " What would you like to buy?";
-        cin >> choice;
+        cout << "What would you like to buy?" << endl;
         cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
         cout << "2: City (2 ore, 3 grain)" << endl;
         cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
         cout << "4: Quit" << endl;
+        cin >> choice;
         
+        //Test to ensure input is valid
         while (choice < 1 || choice > 4)
         {
             cout << "INVALID CHOICE!" << endl;
@@ -82,33 +113,67 @@ void takeTurn(vector<Player*> &players, int z)
             cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
             cout << "4: Quit" << endl;
         }
-        if (choice == 1 && players.at(z))
+        
+        //Fork to follow if user chooses to buy a settlement
+        if (choice == 1)
         {
-            cout << "place on which tile? Must be adjacent to existing settlement or city.";
-            cout << "Enter row index: ";
-            cin >> choice;
-            while (choice)             // need to finish this*********
+            cout << "BUYING A SETTLEMENT" << endl;
+            cout << "On which row is the desired tile located?" << endl;
+            
+            for(int i = 1; i <= size; i++)
             {
-                                       //checks for correct row choice
+                cout << "[" << i << "]" << endl;
             }
-            cout << "Enter column index: ";
-            cin >> choice;
-            while (choice)              // need to finish this*********
+            
+            cin >> row;
+            
+            while(row < 1 || row > size)
             {
-                                        // checks for correct column choice
+                cout << "Error: Row is out of range." << endl;
+                cout << "On which row is the desired tile located?" << endl;
+                
+                for(int i = 1; i <= size; i++)
+                {
+                    cout << "[" << i << "]" << endl;
+                }
+                cin >> row;
             }
-            players.at(z)->getWood();
+            
+            cout << "On which column is the desired tile located?" << endl;
+            
+            for(int i = 1; i <= size; i++)
+            {
+                cout << "[" << i << "] ";
+            }
+            cout << endl;
+            cin >> column;
+            
+            while(column < 1 || column > size)
+            {
+                cout << "Error: Column is out of range." << endl;
+                cout << "On which column is the desired tile located?" << endl;
+            
+                for(int i = 1; i <= size; i++)
+                {
+                    cout << "[" << i << "] ";
+                }
+                cout << endl;
+                cin >> column;
+            }
+            
+            index = size * row - (size - column);
         }
     }
 }
-    
+
 void resources(vector<Player*> &players, int z)
 {
-    cout << " Wood(" << players.at(z)->getWood() << ") Bricks (" << players.at(z)->getBricks() << ") Grain (" << players.at(z)->getGrain() << ") Wool (" << players.at(z)->getWool() << ") Ore (" << players.at(z)->getOre() << ")" << endl;
-    
+    cout << "Wood(" << players.at(z)->getWood();
+    cout << ") Bricks (" << players.at(z)->getBricks();
+    cout << ") Grain (" << players.at(z)->getGrain();
+    cout << ") Wool (" << players.at(z)->getWool();
+    cout << ") Ore (" << players.at(z)->getOre() << ")" << endl;
 }
-
-
 
 int main()
 {
@@ -140,8 +205,10 @@ int main()
     }
     initializePlayers(players, playerCount);
     
-    buildIsland(island, size);
+    buildIsland(island, size, playerCount);
+    shuffleIsland(island);
     renderIsland(island, size);
+    cout << island.size();
     
     int z = 0;
     while(players.at(z)->getVictoryPoints() < 10)
@@ -149,7 +216,7 @@ int main()
         cout << players.at(z)->getName() << " turn." << endl;
         resources(players, z);
         roll = (rand() % 11 + 2);
-        takeTurn(players, z);
+        takeTurn(players, z, size);
         
     }
     

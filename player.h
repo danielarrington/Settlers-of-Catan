@@ -31,7 +31,6 @@ class Player
         void modifyWool(int wo);
         void modifyOre(int o);
         void modifyVictoryPoints(int vp);
-    
 };
 
 #endif
