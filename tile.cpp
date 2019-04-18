@@ -11,12 +11,20 @@ void Tile::setNumber(int n){
     number = n;
 }
 
+void Tile::setOwner(int o){
+    owner = o;
+}
+
 LandType Tile::getLand(){
     return land;
 }
 
 int Tile::getNumber(){
     return number;
+}
+
+int Tile::getOwner(){
+    return owner;
 }
 
 string Tile::render(int line){
@@ -36,6 +44,7 @@ string Tile::render(int line){
 EmptyTile::EmptyTile(LandType l, int n){
     setLand(l);
     setNumber(n);
+    setOwner(-1);
 }
 
 string EmptyTile::render(int line){
@@ -80,9 +89,10 @@ string EmptyTile::render(int line){
 }
 
 // Need to add parameter to pass in which player established settlement
-SettledTile::SettledTile(LandType l, int n){
+SettledTile::SettledTile(LandType l, int n, int o){
     setLand(l);
     setNumber(n);
+    setOwner(o);
 }
 
 // Need to add rendering for player settlement
