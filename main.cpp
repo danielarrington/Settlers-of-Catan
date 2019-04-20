@@ -144,7 +144,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
         
         //The user chose the first row (don't test tile above)
         if(row == 1)
-        { //need to add in for column not equal to 0
+        { 
             //The user chose the first column (don't test tile to the left)
             if(column == 1)
             {
@@ -460,7 +460,6 @@ int main()
     buildIsland(island, size, playerCount);
     shuffleIsland(island);
     renderIsland(island, size);
-    
     cout << "Island vector length: " << island.size() << endl; //DEBUGGING OUTPUT
     
     while(players.at(currentPlayer)->getVictoryPoints() < 10)
@@ -468,7 +467,41 @@ int main()
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
-        takeTurn(players, island, currentPlayer + 1, size);
+        takeTurn(players, island, currentPlayer + 1, size); 
+        /* ********Look at this line and look at intialize players line, to make it easier for you******
+        to see I'll copy and paste it here:
+        When current players is intialized to zero and player count is taken its immediately sent up to initializePlayers
+        takeTurn(players, island, currentPlayer + 1, size); causes you to skip over an entire player and when you want the last player to play their turn
+        it bugs out
+        But since initializePlayers FIRST value is actually zero, the program is skipping over an entire player
+        I've tried tweaking it a bunch but with the if loop in intialize players to help print their name I keep getting another error which is
+        the exact same thing that shows up. Ill keep looking at it, but 6 eyes are better than two :)
+        void initializePlayers(vector<Player*> &players, int playerCount)
+        {
+            string name;
+            for (int i = 0; i < playerCount; i++)
+            {   
+                cout << "What is Player " << (i + 1) << "'s name? ";
+                cin >> name;
+                players.push_back(new Player(name, 1, 1, 1, 1, 1, 0));
+            }
+        
+        cout << "Welcome to the Island of Catan";
+    
+        for (int i = 0; i < playerCount; i++)
+        {
+            if (i == playerCount - 1)
+            {
+                cout << " & " << players.at(i)->getName() << "." << endl;
+            }
+        else
+        {
+            cout << ", " << players.at(i)->getName();
+        }
+    }
+}
+
+*/
         renderIsland(island, size);
         
         currentPlayer++;
@@ -480,3 +513,4 @@ int main()
     }
     return 0;
 }
+//check
