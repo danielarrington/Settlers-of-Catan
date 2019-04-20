@@ -406,7 +406,7 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         cout << "What would you like to buy?" << endl;
         cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
         cout << "2: City (2 ore, 3 grain)" << endl;
-        cout << "3: Development  (1 ore, 1 grain, 1 wool)" << endl;
+        cout << "3: Development Card  (1 ore, 1 grain, 1 wool)" << endl;
         cout << "4: Quit" << endl;
         cin >> choice;
         
@@ -416,7 +416,7 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
             cout << "INVALID CHOICE!" << endl;
             cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
             cout << "2: City (2 ore, 3 grain)" << endl;
-            cout << "3: Development  (1 ore, 1 grain, 1 wool)" << endl;
+            cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
             cout << "4: Quit" << endl;
             cin >> choice;
         }
