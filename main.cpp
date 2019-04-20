@@ -122,7 +122,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     
     //Calculates the index in the vector based off of the row and column input
     index = size * row - (size - column + 1);
-    
+    cout << index << endl;
     cout << endl << "Vector index: " << (index + 1) << endl;
     cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
     
@@ -144,7 +144,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
         
         //The user chose the first row (don't test tile above)
         if(row == 1)
-        {
+        { //need to add in for column not equal to 0
             //The user chose the first column (don't test tile to the left)
             if(column == 1)
             {
@@ -289,7 +289,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either above, below, or to the right of the chosen tile
-                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index + 1)->getOwner() == player)
+                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player )
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
                     players.at(player)->modifyWood(players.at(player)->getWood() - 1);
@@ -311,7 +311,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either above, below, or to the left of the chosen tile
-                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index - 1)->getOwner() == player)
+                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index - 1)->getOwner() == player || island.at(index + 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
                     players.at(player)->modifyWood(players.at(player)->getWood() - 1);
@@ -375,12 +375,11 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         cout << "3: End Turn" << endl;
         cin >> choice;
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
     
     //Fork to follow if user chooses to buy
-=======
-    cout << "lmao" << endl;
->>>>>>> 34bfcf083d641717f6d8fd9a8f082bff6b75fe43
+//=======
+// >>>>>>> 34bfcf083d641717f6d8fd9a8f082bff6b75fe43
     if (choice == 1)
     {
         cout << "What would you like to buy?" << endl;
@@ -402,9 +401,9 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         }
         
         //Fork to follow if user chooses to buy a settlement if they have enough resources
-        if (choice == 1 && players.at(player)->getWood() > 0 && players.at(player)->getBricks() > 0 && players.at(player)->getGrain() > 0 && players.at(player)->getWool() > 0)
+       if (choice == 1 && players.at(player)->getWood() >= 1 && players.at(player)->getBricks() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
         {
-            buySettlement(players, island, player, size);
+            buySettlement(players, island, player, size); // theres an error
         }
         //Fork that informs the player that they don't have enough resources if they choose to build a settlement
         else if(choice == 1 && (players.at(player)->getWood() == 0 || players.at(player)->getBricks() == 0 || players.at(player)->getGrain() == 0 || players.at(player)->getWool() == 0))
@@ -474,7 +473,7 @@ int main()
         
         currentPlayer++;
         
-        if(currentPlayer == playerCount)
+        if(currentPlayer == playerCount + 1)
         {
             currentPlayer = 0;
         }
