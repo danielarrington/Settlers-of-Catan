@@ -2,7 +2,7 @@
 #include <vector>
 #include "tile.h"
 #include "player.h"
-
+#include "card.h"
 using namespace std;
 
 void buildIsland(vector<Tile*> &island, int size, int playerCount)
@@ -30,7 +30,28 @@ void shuffleIsland(vector<Tile*> &island)
         island.at(i2) = temp;
     }
 }
-
+void buildDeck(vector<Card*> &deck)
+{
+    for(int t = LIBRARY; t <= KNIGHT; t++)
+    {
+        for(int n = 0; n < 5; n++){
+            deck.push_back(new DevelopmentCard((developmentType)t,n));
+        }
+    }
+}
+void shuffleDevelopementCards(vector<Card*> &deck)
+{
+    Card* temp;
+    int idx1, idx2;
+    for(int i = 0; i < 500; i++){
+        idx1 = rand() % deck.size();
+        idx2 = rand() % deck.size();
+        
+        temp = deck.at(idx1);
+        deck.at(idx1) = deck.at(idx2);
+        deck.at(idx2) = temp;
+    }
+}
 void renderIsland(vector<Tile*> island, int size)
 {
     for (int s = 0; s < size; s++)
@@ -385,7 +406,7 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         cout << "What would you like to buy?" << endl;
         cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
         cout << "2: City (2 ore, 3 grain)" << endl;
-        cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
+        cout << "3: Development  (1 ore, 1 grain, 1 wool)" << endl;
         cout << "4: Quit" << endl;
         cin >> choice;
         
@@ -395,7 +416,7 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
             cout << "INVALID CHOICE!" << endl;
             cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
             cout << "2: City (2 ore, 3 grain)" << endl;
-            cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
+            cout << "3: Development  (1 ore, 1 grain, 1 wool)" << endl;
             cout << "4: Quit" << endl;
             cin >> choice;
         }
@@ -427,7 +448,7 @@ void resources(vector<Player*> &players, int z)
 int main()
 {
     srand(time(0));
-    
+    vector<Card*> deck;
     int size;
     int playerCount;
     int currentPlayer = 0;
