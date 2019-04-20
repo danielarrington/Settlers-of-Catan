@@ -29,10 +29,10 @@ void shuffleIsland(vector<Tile*> &island)
         island.at(i1) = island.at(i2);
         island.at(i2) = temp;
     }
-}
-void buildDeck(vector<Card*> &deck)
+}/*
+void buildDeck(vector<int> deck)
 {
-    for(int t = LIBRARY; t <= KNIGHT; t++)
+    for(int t = ; t <= KNIGHT; t++)
     {
         for(int n = 0; n < 5; n++){
             deck.push_back(new DevelopmentCard((developmentType)t,n));
@@ -51,7 +51,7 @@ void shuffleDevelopementCards(vector<Card*> &deck)
         deck.at(idx1) = deck.at(idx2);
         deck.at(idx2) = temp;
     }
-}
+}*/
 void renderIsland(vector<Tile*> island, int size)
 {
     for (int s = 0; s < size; s++)
@@ -448,7 +448,7 @@ void resources(vector<Player*> &players, int z)
 int main()
 {
     srand(time(0));
-    vector<Card*> deck;
+   // vector<Card*> deck;
     int size;
     int playerCount;
     int currentPlayer = 0;
