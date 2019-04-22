@@ -6,6 +6,13 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A4917298226E368A0029D52C /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A4917291226E368A0029D52C /* tile.cpp */; };
+		A4917299226E368A0029D52C /* card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A4917292226E368A0029D52C /* card.cpp */; };
+		A491729A226E368A0029D52C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A4917293226E368A0029D52C /* main.cpp */; };
+		A491729B226E368A0029D52C /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A4917295226E368A0029D52C /* player.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		A4917285226E36060029D52C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +27,13 @@
 
 /* Begin PBXFileReference section */
 		A4917287226E36060029D52C /* Settlers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Settlers; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4917291226E368A0029D52C /* tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tile.cpp; path = ../../tile.cpp; sourceTree = "<group>"; };
+		A4917292226E368A0029D52C /* card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = card.cpp; path = ../../card.cpp; sourceTree = "<group>"; };
+		A4917293226E368A0029D52C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../main.cpp; sourceTree = "<group>"; };
+		A4917294226E368A0029D52C /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player.h; path = ../../player.h; sourceTree = "<group>"; };
+		A4917295226E368A0029D52C /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player.cpp; path = ../../player.cpp; sourceTree = "<group>"; };
+		A4917296226E368A0029D52C /* tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tile.h; path = ../../tile.h; sourceTree = "<group>"; };
+		A4917297226E368A0029D52C /* card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = card.h; path = ../../card.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +66,13 @@
 		A4917289226E36060029D52C /* Settlers */ = {
 			isa = PBXGroup;
 			children = (
+				A4917292226E368A0029D52C /* card.cpp */,
+				A4917297226E368A0029D52C /* card.h */,
+				A4917293226E368A0029D52C /* main.cpp */,
+				A4917295226E368A0029D52C /* player.cpp */,
+				A4917294226E368A0029D52C /* player.h */,
+				A4917291226E368A0029D52C /* tile.cpp */,
+				A4917296226E368A0029D52C /* tile.h */,
 			);
 			path = Settlers;
 			sourceTree = "<group>";
@@ -112,6 +133,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A491729B226E368A0029D52C /* player.cpp in Sources */,
+				A4917298226E368A0029D52C /* tile.cpp in Sources */,
+				A4917299226E368A0029D52C /* card.cpp in Sources */,
+				A491729A226E368A0029D52C /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
