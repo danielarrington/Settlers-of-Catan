@@ -434,6 +434,16 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         }
         
     }
+    // Trade
+    else if (choice == 2)
+    {
+        cout << "Who would you like to trade with?" << endl;
+        
+        for (int i = 0; i < players.size(); i++)
+        {
+            cout << i+1 << ": " << players.at(i)->getName() << endl;
+        }
+    }
 }
 
 void resources(vector<Player*> &players, int z)
@@ -477,7 +487,6 @@ int main()
         cin >> playerCount;
     }
     initializePlayers(players, playerCount);
-    
     buildIsland(island, size, playerCount);
     shuffleIsland(island);
     renderIsland(island, size);
