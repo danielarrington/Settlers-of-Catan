@@ -5,6 +5,17 @@
 #include "card.h"
 using namespace std;
 
+// Function declarations
+void buildIsland(vector<Tile*> &island, int size, int playerCount);
+void shuffleIsland(vector<Tile*> &island);
+void renderIsland(vector<Tile*> island, int size);
+void initializePlayers(vector<Player*> &players, int playerCount);
+void resources(vector<Player*> &players, int z);
+void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+
 void buildIsland(vector<Tile*> &island, int size, int playerCount)
 {
     for (int i = 0; i < (size * size) - playerCount; i++)
@@ -384,10 +395,48 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
 }
 
-void trade(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int choice = 0;
-    int type = 0;
+    
+    while (choice != 4)
+    {
+        cout << "What would you like to buy?" << endl;
+        cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
+        cout << "2: City (2 ore, 3 grain)" << endl;
+        cout << "3: Development Card  (1 ore, 1 grain, 1 wool)" << endl;
+        cout << "4: Back" << endl;
+        cin >> choice;
+        
+        //Test to ensure input is valid
+        while (choice < 1 || choice > 4)
+        {
+            cout << "INVALID CHOICE!" << endl;
+            cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
+            cout << "2: City (2 ore, 3 grain)" << endl;
+            cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
+            cout << "4: Back" << endl;
+            cin >> choice;
+        }
+        
+        //Fork to follow if user chooses to buy a settlement if they have enough resources
+        if (choice == 1 && players.at(player)->getWood() >= 1 && players.at(player)->getBricks() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
+        {
+            buySettlement(players, island, player, size); // theres an error
+        }
+        //Fork that informs the player that they don't have enough resources if they choose to build a settlement
+        else if(choice == 1 && (players.at(player)->getWood() == 0 || players.at(player)->getBricks() == 0 || players.at(player)->getGrain() == 0 || players.at(player)->getWool() == 0))
+        {
+            cout << "You do not have enough resources to build a settlement." << endl;
+            takeTurn(players, island, player, size);
+        }
+        
+    }
+}
+
+void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+{
+    int choice = 0;
     
     cout << "Who would you like to trade with?" << endl;
         
@@ -430,8 +479,10 @@ void trade(vector<Player*> &players, vector<Tile*> &island, int player, int size
 
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
-    int choice; //Variable to store user menu input
+    int choice = 0; //Variable to store user menu input
     
+    while (choice != 3)
+    {
     //Prompt user for move choice
     cout << "What would you like to do?" << endl;
     cout << "1: Buy" << endl;
@@ -449,52 +500,15 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         cout << "3: End Turn" << endl;
         cin >> choice;
     }
-//<<<<<<< HEAD
-    
-    //Fork to follow if user chooses to buy
-//=======
-// >>>>>>> 34bfcf083d641717f6d8fd9a8f082bff6b75fe43
+
+    // Buy
     if (choice == 1)
-    {
-        cout << "What would you like to buy?" << endl;
-        cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
-        cout << "2: City (2 ore, 3 grain)" << endl;
-        cout << "3: Development Card  (1 ore, 1 grain, 1 wool)" << endl;
-        cout << "4: Quit" << endl;
-        cin >> choice;
-        
-        //Test to ensure input is valid
-        while (choice < 1 || choice > 4)
-        {
-            cout << "INVALID CHOICE!" << endl;
-            cout << "1: Settlement (1 wood, 1 brick, 1 grain, 1 wool)" << endl;
-            cout << "2: City (2 ore, 3 grain)" << endl;
-            cout << "3: Development Card (1 ore, 1 grain, 1 wool)" << endl;
-            cout << "4: Quit" << endl;
-            cin >> choice;
-        }
-        
-        //Fork to follow if user chooses to buy a settlement if they have enough resources
-       if (choice == 1 && players.at(player)->getWood() >= 1 && players.at(player)->getBricks() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
-        {
-            buySettlement(players, island, player, size); // theres an error
-        }
-        //Fork that informs the player that they don't have enough resources if they choose to build a settlement
-        else if(choice == 1 && (players.at(player)->getWood() == 0 || players.at(player)->getBricks() == 0 || players.at(player)->getGrain() == 0 || players.at(player)->getWool() == 0))
-        {
-            cout << "You do not have enough resources to build a settlement." << endl;
-            takeTurn(players, island, player, size);
-        }
-        
-    }
+        buyPrompt(players, island, player, size);
     // Trade
     else if (choice == 2)
-    {
-        trade(players, island, player, size);
+        tradePrompt(players, island, player, size);
     }
 }
-
-
 
 int main()
 {
@@ -584,4 +598,3 @@ int main()
     }
     return 0;
 }
-//check
