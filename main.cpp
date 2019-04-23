@@ -92,6 +92,15 @@ void initializePlayers(vector<Player*> &players, int playerCount)
     }
 }
 
+void resources(vector<Player*> &players, int z)
+{
+    cout << "Wood(" << players.at(z)->getWood();
+    cout << ") Bricks(" << players.at(z)->getBricks();
+    cout << ") Grain(" << players.at(z)->getGrain();
+    cout << ") Wool(" << players.at(z)->getWool();
+    cout << ") Ore(" << players.at(z)->getOre() << ")" << endl;
+}
+
 void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int row, column; //Variables which store inputs for row and column
@@ -375,6 +384,50 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
 }
 
+void trade(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+{
+    int choice = 0;
+    int type = 0;
+    
+    cout << "Who would you like to trade with?" << endl;
+        
+    for (int i = 0; i < players.size(); i++)
+    {
+        if(i != player - 1)
+        {
+            cout << i+1 << ": " << players.at(i)->getName() << " has ";
+            resources(players, i);
+        }
+    }
+    
+    cin >> choice;
+    
+    while(choice < 1 || choice > players.size() || choice == player)
+    {
+        cout << "Invalid player choice." << endl;
+        cout << "Who would you like to trade with?" << endl;
+        
+        for (int i = 0; i < players.size(); i++)
+        {
+            if(i != player - 1)
+            {
+                cout << i+1 << ": " << players.at(i)->getName() << " has ";
+                resources(players, i);
+            }
+        }
+        
+        cin >> choice;
+    }
+    
+    cout << "Which resource would you like to trade?" << endl;
+    cout << "1: Wood" << endl;
+    cout << "2: Bricks" << endl;
+    cout << "3: Grain" << endl;
+    cout << "4: Wool" << endl;
+    cout << "5: Ore" << endl;
+    
+}
+
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int choice; //Variable to store user menu input
@@ -437,44 +490,11 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
     // Trade
     else if (choice == 2)
     {
-        cout << "Who would you like to trade with?" << endl;
-        
-        for (int i = 0; i < players.size(); i++)
-        {
-            if(i != player - 1)
-            {
-                cout << i+1 << ": " << players.at(i)->getName() << endl;
-            }
-        }
-        
-        cin >> choice;
-        
-        while(choice < 1 || choice > players.size() || choice == player)
-        {
-            cout << "Invalid player choice." << endl;
-            cout << "Who would you like to trade with?" << endl;
-            
-            for (int i = 0; i < players.size(); i++)
-            {
-                if(i != player - 1)
-                {
-                    cout << i+1 << ": " << players.at(i)->getName() << endl;
-                }
-            }
-            
-            cin >> choice;
-        }
+        trade(players, island, player, size);
     }
 }
 
-void resources(vector<Player*> &players, int z)
-{
-    cout << "Wood(" << players.at(z)->getWood();
-    cout << ") Bricks(" << players.at(z)->getBricks();
-    cout << ") Grain(" << players.at(z)->getGrain();
-    cout << ") Wool(" << players.at(z)->getWool();
-    cout << ") Ore(" << players.at(z)->getOre() << ")" << endl;
-}
+
 
 int main()
 {
