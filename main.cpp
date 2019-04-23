@@ -162,7 +162,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
     
     //Calculates the index in the vector based off of the row and column input
-    index = size * row - (size - column + 1);
+    index = (size * (row - 1)) + (column - 1);
     cout << index << endl;
     cout << endl << "Vector index: " << (index + 1) << endl;
     cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
@@ -190,7 +190,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either to the right of or below the chosen tile
-                if(island.at(2)->getOwner() == player || island.at(size + 1)->getOwner() == player)
+                if(island.at(1)->getOwner() == player || island.at(size)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
                     players.at(player)->modifyWood(players.at(player)->getWood() - 1);
@@ -198,6 +198,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -212,7 +213,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either to the left of or below the chosen tile
-                if(island.at(size - 1)->getOwner() == player || island.at(size * 2)->getOwner() == player)
+                if(island.at(size - 1)->getOwner() == player || island.at((size * 2) - 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
                     players.at(player)->modifyWood(players.at(player)->getWood() - 1);
@@ -220,6 +221,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -234,7 +236,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else
             {
                 //Verifies that the player owns a settlement either to the left of, to the right of, or below the chosen tile
-                if(island.at(column - 1)->getOwner() == player || island.at(column + 1)->getOwner() == player || island.at(size + column)->getOwner() == player)
+                if(island.at(column - 2)->getOwner() == player || island.at(column)->getOwner() == player || island.at(size + column)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
                     players.at(player)->modifyWood(players.at(player)->getWood() - 1);
@@ -242,6 +244,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -268,6 +271,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -290,6 +294,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -312,6 +317,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -338,6 +344,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -360,6 +367,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                     players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
                     players.at(player)->modifyWool(players.at(player)->getWool() - 1);
                     players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
@@ -377,11 +385,12 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index + 1)->getOwner() == player || island.at(index - 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    //players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    //players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    //players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    //players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    //players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
+                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
+                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
+                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
+                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    renderIsland(island, size);
                 }
                 else
                 {
