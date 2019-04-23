@@ -441,7 +441,28 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
         
         for (int i = 0; i < players.size(); i++)
         {
-            cout << i+1 << ": " << players.at(i)->getName() << endl;
+            if(i != player - 1)
+            {
+                cout << i+1 << ": " << players.at(i)->getName() << endl;
+            }
+        }
+        
+        cin >> choice;
+        
+        while(choice < 1 || choice > players.size() || choice == player)
+        {
+            cout << "Invalid player choice." << endl;
+            cout << "Who would you like to trade with?" << endl;
+            
+            for (int i = 0; i < players.size(); i++)
+            {
+                if(i != player - 1)
+                {
+                    cout << i+1 << ": " << players.at(i)->getName() << endl;
+                }
+            }
+            
+            cin >> choice;
         }
     }
 }
