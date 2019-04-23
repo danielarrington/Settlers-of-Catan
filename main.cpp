@@ -436,7 +436,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
 
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
-    int choice = 0;
+    int playerChoice, resourceChoice = 0;
     
     cout << "Who would you like to trade with?" << endl;
         
@@ -449,9 +449,9 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
         }
     }
     
-    cin >> choice;
+    cin >> playerChoice;
     
-    while(choice < 1 || choice > players.size() || choice == player)
+    while(playerChoice < 1 || playerChoice > players.size() || playerChoice == player)
     {
         cout << "Invalid player choice." << endl;
         cout << "Who would you like to trade with?" << endl;
@@ -465,7 +465,7 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
             }
         }
         
-        cin >> choice;
+        cin >> playerChoice;
     }
     
     cout << "Which resource would you like to trade?" << endl;
@@ -474,6 +474,10 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     cout << "3: Grain" << endl;
     cout << "4: Wool" << endl;
     cout << "5: Ore" << endl;
+    cin >> resourceChoice;
+    
+    
+    
     
 }
 
@@ -588,9 +592,7 @@ int main()
 
 */
         renderIsland(island, size);
-        
         currentPlayer++;
-        
         if(currentPlayer == playerCount + 1)
         {
             currentPlayer = 0;
