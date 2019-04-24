@@ -413,6 +413,91 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
 }
 
+void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+{
+    int row, column; //Variables which store inputs for row and column
+    int index; //Variable which stores calculated index in the island vector
+    
+    cout << "BUYING A CITY" << endl;
+    cout << "On which row is the desired tile located?" << endl;
+    
+    for(int i = 1; i <= size; i++)
+    {
+        cout << "[" << i << "]" << endl;
+    }
+    
+    cin >> row;
+    
+    while(row < 1 || row > size)
+    {
+        cout << "Error: Row is out of range." << endl;
+        cout << "On which row is the desired tile located?" << endl;
+        
+        for(int i = 1; i <= size; i++)
+        {
+            cout << "[" << i << "]" << endl;
+        }
+        cin >> row;
+    }
+    
+    cout << "On which column is the desired tile located?" << endl;
+    
+    for(int i = 1; i <= size; i++)
+    {
+        cout << "[" << i << "] ";
+    }
+    cout << endl;
+    cin >> column;
+    
+    while(column < 1 || column > size)
+    {
+        cout << "Error: Column is out of range." << endl;
+        cout << "On which column is the desired tile located?" << endl;
+    
+        for(int i = 1; i <= size; i++)
+        {
+            cout << "[" << i << "] ";
+        }
+        cout << endl;
+        cin >> column;
+    }
+    
+    //Calculates the index in the vector based off of the row and column input
+    index = (size * (row - 1)) + (column - 1);
+    cout << index << endl;
+    cout << endl << "Vector index: " << (index + 1) << endl;
+    cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
+    
+    //Produce a message to the user if there is already a settlement at
+    //the selected tile
+    if(island.at(index)->getOwner() != player && (island.at(index)->getOwner()) % 10 != player)
+    {
+        renderIsland(island, size);
+        cout << endl << "This is not your Settlement" << endl;
+        cout << "Please choose another tile." << endl << endl;
+        buyCity(players, island, player, size);
+    }
+    else if(island.at(index)->getOwner() % 10 == player)
+    {
+        renderIsland(island, size);
+        cout << endl << "You already have a city here." << endl;
+        cout << "Please choose another tile." << endl << endl;
+        buyCity(players, island, player, size);
+    }
+    
+    //The selected tile is not already settled
+    else
+    {
+        int land = island.at(index)->getLand(); //Save the landtype of the current tile
+        int value = island.at(index)->getNumber(); //Sae the number of the current tile
+        int owner = island.at(index)->getOwner();
+        owner = owner * 10;
+        //island.at(index) = new cityTile((LandType)land, value, owner); ->>>>>>>>>>>>> needs to be added in tile
+        players.at(player - 1)->modifyWood(-1);
+        players.at(player - 1)->modifyGrain(-3);
+    }
+}
+
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int choice = 0;
@@ -454,7 +539,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
         {
             if(players.at(player - 1)->getOre() >= 2 && players.at(player - 1)->getGrain() >= 3)
             {
-                //Call function for buying a city
+                buyCity(players, island, player, size);//Call function for buying a city
             }
             else
             {
@@ -474,6 +559,12 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
                 takeTurn(players, island, player, size);
             }
         }
+//<<<<<<<<< saved version
+
+//=========
+
+        
+//>>>>>>>>> local version
     }
 }
 
@@ -564,7 +655,7 @@ int main()
    // vector<Card*> deck;
     int size;
     int playerCount;
-    int currentPlayer = 0;
+    int currentPlayer = 1;
     int roll = 0;
     
     vector<Tile*> island;
@@ -599,7 +690,7 @@ int main()
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
-        takeTurn(players, island, currentPlayer + 1, size); 
+        takeTurn(players, island, currentPlayer, size); 
         /* ********Look at this line and look at intialize players line, to make it easier for you******
         to see I'll copy and paste it here:
         When current players is intialized to zero and player count is taken its immediately sent up to initializePlayers
@@ -637,7 +728,10 @@ int main()
         renderIsland(island, size);
         currentPlayer++;
         
+//<<<<<<<<< saved version
         if(currentPlayer == playerCount)
+//=========
+//>>>>>>>>> local version
         {
             currentPlayer = 0;
         }
