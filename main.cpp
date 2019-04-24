@@ -13,10 +13,10 @@ void shuffleIsland(vector<Tile*> &island);
 void renderIsland(vector<Tile*> island, int size);
 void initializePlayers(vector<Player*> &players, int playerCount);
 void resources(vector<Player*> &players, int z);
-void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, int size);
-void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
+void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
-void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 
 
 void buildDeck(vector<Card*> &deck)
@@ -116,7 +116,7 @@ void resources(vector<Player*> &players, int z)
     cout << ") Ore(" << players.at(z)->getOre() << ")" << endl;
 }
 
-void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int row, column; //Variables which store inputs for row and column
     int index; //Variable which stores calculated index in the island vector
@@ -178,7 +178,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
         renderIsland(island, size);
         cout << endl << "There is already a settlement on this tile." << endl;
         cout << "Please choose another tile." << endl << endl;
-        buySettlement(players, island, player, size);
+        buySettlement(players, island, deck, player, size);
     }
     
     //The selected tile is not already settled
@@ -194,23 +194,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either to the right of or below the chosen tile
-                if(island.at(1)->getOwner() == player || island.at(size)->getOwner() == player)
+                if(island.at(1)->getOwner() == (player + 1) || island.at(size)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -218,23 +218,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either to the left of or below the chosen tile
-                if(island.at(size - 1)->getOwner() == player || island.at((size * 2) - 1)->getOwner() == player)
+                if(island.at(size - 1)->getOwner() == (player + 1) || island.at((size * 2) - 1)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -242,23 +242,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else
             {
                 //Verifies that the player owns a settlement either to the left of, to the right of, or below the chosen tile
-                if(island.at(column - 2)->getOwner() == player || island.at(column)->getOwner() == player || island.at(size + column - 1)->getOwner() == player)
+                if(island.at(column - 2)->getOwner() == (player + 1) || island.at(column)->getOwner() == (player + 1) || island.at(size + column - 1)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
         }
@@ -270,23 +270,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either to the right of or above the chosen tile
-                if(island.at(index + 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
+                if(island.at(index + 1)->getOwner() == (player + 1) || island.at(index - size)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -294,23 +294,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either to the left of or above the chosen tile
-                if(island.at(index - 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
+                if(island.at(index - 1)->getOwner() == (player + 1) || island.at(index - size)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -318,23 +318,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else
             {
                 //Verifies that the player owns a settlement either to the left of, to the right of, or above the chosen tile
-                if(island.at(index - 1)->getOwner() == player || island.at(index + 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
+                if(island.at(index - 1)->getOwner() == (player + 1) || island.at(index + 1)->getOwner() == (player + 1) || island.at(index - size)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
         }
@@ -346,23 +346,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either above, below, or to the right of the chosen tile
-                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player )
+                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -370,23 +370,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either above, below, or to the left of the chosen tile
-                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index - 1)->getOwner() == player || island.at(index + 1)->getOwner() == player)
+                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1) || island.at(index - 1)->getOwner() == (player + 1) || island.at(index + 1)->getOwner() == player)
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
             
@@ -394,23 +394,23 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else
             {
                 //Verifies that the player owns a settlement either above, below, to the right of, or to the left of the chosen tile
-                if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index + 1)->getOwner() == player || island.at(index - 1)->getOwner() == player)
+                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1) || island.at(index + 1)->getOwner() == (player + 1) || island.at(index - 1)->getOwner() == (player + 1))
                 {
-                    island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyOre(-1);
+                    island.at(index) = new SettledTile((LandType)land, value, (player + 1));
+                    players.at(player)->modifyWood(-1);
+                    players.at(player)->modifyBricks(-1);
+                    players.at(player)->modifyGrain(-1);
+                    players.at(player)->modifyWool(-1);
+                    players.at(player)->modifyOre(-1);
                     renderIsland(island, size);
-                    takeTurn(players, island, player, size);
+                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
                     renderIsland(island, size);
                     cout << endl << "You don't own a settlement on an adjacent tile." << endl;
                     cout << "Please choose another tile." << endl << endl;
-                    buySettlement(players, island, player, size);
+                    buySettlement(players, island, deck, player, size);
                 }
             }
         }
@@ -420,24 +420,58 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
 void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int player)
 {
     int type = deck.at(deck.size() - 1)->getType();
+    deck.pop_back();
     int input = 0;
     int resource = rand() % 5;
     
-    if(type == 0 || type == 1 || type == 2)
+    players.at(player - 1)->modifyOre(-1);
+    players.at(player - 1)->modifyGrain(-1);
+    players.at(player - 1)->modifyWool(-1);
+    
+    //Library card is drawn
+    if(type == 0)
     {
+        cout << "You drew a Library card." << endl;
+        cout << "You have been awarded one victory point!" << endl;
         players.at(player - 1)->modifyVictoryPoints(1);
     }
+    //University card is drawn
+    else if(type == 1)
+    {
+        cout << "You drew a University card." << endl;
+        cout << "You have been awarded one victory point!" << endl;
+        players.at(player - 1)->modifyVictoryPoints(1);
+    }
+    //Town hall card is drawn
+    else if(type == 2)
+    {
+        cout << "You drew a Town Hall card." << endl;
+        cout << "You have been awarded one victory point!" << endl;
+        players.at(player - 1)->modifyVictoryPoints(1);
+    }
+    //Harvest Bounty card is drawn
     else if(type == 3)
     {
+        cout << "You drew a Harvest Bounty card." << endl;
+        cout << "You have been awarding one of each resource!" << endl;
         players.at(player - 1)->modifyWood(1);
         players.at(player - 1)->modifyBricks(1);
         players.at(player - 1)->modifyGrain(1);
         players.at(player - 1)->modifyWool(1);
         players.at(player - 1)->modifyOre(1);
     }
+    //Knight card is drawn
     else
     {
-        cout << "Choose a player to steal a random resource from: ";
+        cout << "You drew a Knight card." << endl;
+        cout << "Choose a player to steal a random resource from." << endl;
+        for (int i = 0; i < players.size(); i++)
+        {
+            if(i != (player - 1))
+            {
+                cout << i+1 << ": " << players.at(i)->getName() << endl;
+            }
+        }
         cin >> input;
         
         while(input == player || input < 0 || input > players.size())
@@ -447,7 +481,49 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int playe
             cin >> input;
         }
         
-        players.at(input - 1)->
+        switch (resource)
+        {
+            case 0:
+                if(players.at(input - 1)->getWood() != 0)
+                {
+                    players.at(input - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyWood(1);
+                    cout << players.at(player - 1)->getName() << " stole 1 wood from " << players.at(input - 1)->getName() << "!" << endl;
+                    break;  
+                }
+            case 1:
+                if(players.at(input - 1)->getBricks() != 0)
+                {
+                    players.at(input - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyBricks(1);
+                    cout << players.at(player - 1)->getName() << " stole 1 brick from " << players.at(input - 1)->getName() << "!" << endl;
+                    break;
+                }
+            case 2:
+                if(players.at(input - 1)->getGrain() != 0)
+                {
+                    players.at(input - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyGrain(1);
+                    cout << players.at(player - 1)->getName() << " stole 1 grain from " << players.at(input - 1)->getName() << "!" << endl;
+                    break;
+                }
+            case 3:
+                if(players.at(input - 1)->getWool() != 0)
+                {
+                    players.at(input - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyWool(1);
+                    cout << players.at(player - 1)->getName() << " stole 1 wool from " << players.at(input - 1)->getName() << "!" << endl;
+                    break;
+                }
+            case 4:
+                if(players.at(input - 1)->getOre() != 0)
+                {
+                    players.at(input - 1)->modifyOre(-1);
+                    players.at(player - 1)->modifyOre(1);
+                    cout << players.at(player - 1)->getName() << " stole 1 ore from " << players.at(input - 1)->getName() << "!" << endl;
+                    break;
+                }
+        }
     }
 }
 
@@ -508,14 +584,14 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int si
     
     //Produce a message to the user if there is already a settlement at
     //the selected tile
-    if(island.at(index)->getOwner() != player && (island.at(index)->getOwner()) % 10 != player)
+    if(island.at(index)->getOwner() != (player + 1) && ((island.at(index)->getOwner()) / 10) != (player + 1))
     {
         renderIsland(island, size);
         cout << endl << "This is not your Settlement" << endl;
         cout << "Please choose another tile." << endl << endl;
         buyCity(players, island, player, size);
     }
-    else if(island.at(index)->getOwner() % 10 == player)
+    else if((island.at(index)->getOwner() / 10) == (player + 1))
     {
         renderIsland(island, size);
         cout << endl << "You already have a city here." << endl;
@@ -536,7 +612,7 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int si
     }
 }
 
-void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int choice = 0;
     
@@ -563,38 +639,38 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
         //Fork to follow if user chooses to buy a settlement if they have enough resources
         if (choice == 1)
         {
-            if(players.at(player - 1)->getWood() >= 1 && players.at(player - 1)->getBricks() >= 1 && players.at(player - 1)->getGrain() >= 1 && players.at(player - 1)->getWool() >= 1)
+            if(players.at(player)->getWood() >= 1 && players.at(player)->getBricks() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
             {
-                buySettlement(players, island, player, size); // theres an error
+                buySettlement(players, island, deck, player, size); // theres an error
             }
             else
             {
                 cout << "You do not have enough resources to build a settlement." << endl;
-                takeTurn(players, island, player, size);
+                takeTurn(players, island, deck, player, size);
             }
         }
         else if (choice == 2)
         {
-            if(players.at(player - 1)->getOre() >= 2 && players.at(player - 1)->getGrain() >= 3)
+            if(players.at(player)->getOre() >= 2 && players.at(player)->getGrain() >= 3)
             {
                 buyCity(players, island, player, size);//Call function for buying a city
             }
             else
             {
                 cout << "You do not have enough resources to build a city." << endl;
-                takeTurn(players, island, player, size);
+                takeTurn(players, island, deck, player, size);
             }
         }
         else if (choice == 3)
         {
-            if(players.at(player - 1)->getOre() >= 1 && players.at(player - 1)->getGrain() >= 1 && players.at(player - 1)->getWool())
+            if(players.at(player)->getOre() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
             {
-                //Call function for buying a development card
+                buyDevelopmentCard(players, deck, player);
             }
             else
             {
                 cout << "You do not have enough resources to buy a development card." << endl;
-                takeTurn(players, island, player, size);
+                takeTurn(players, island, deck, player, size);
             }
         }
     }
@@ -648,7 +724,7 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     
 }
 
-void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int choice = 0; //Variable to store user menu input
     
@@ -676,23 +752,25 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
 
     // Buy
     if (choice == 1)
-        buyPrompt(players, island, player, size);
+        buyPrompt(players, island, deck, player, size);
     // Trade
     else if (choice == 2)
         tradePrompt(players, island, player, size);
-    //Swap three cards for one
+    //Swap three resources for one
     else if (choice == 3)
-        //Implement code to swap cards
+    {
+        //Implement code to swap resources
+    }
+        
     }
 }
 
 int main()
 {
     srand(time(0));
-   // vector<Card*> deck;
     int size;
     int playerCount;
-    int currentPlayer = 1;
+    int currentPlayer = 0;
     int roll = 0;
     
     vector<Tile*> island;
@@ -718,17 +796,18 @@ int main()
         cout << "How many players will there be? (2-4): ";
         cin >> playerCount;
     }
+    
     initializePlayers(players, playerCount);
     buildIsland(island, size, playerCount);
     shuffleIsland(island);
     renderIsland(island, size);
-    cout << "Island vector length: " << island.size() << endl; //DEBUGGING OUTPUT
+    
     while(players.at(currentPlayer)->getVictoryPoints() < 10)
     {
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
-        takeTurn(players, island, currentPlayer, size); 
+        takeTurn(players, island, deck, currentPlayer, size); 
         /* ********Look at this line and look at intialize players line, to make it easier for you******
         to see I'll copy and paste it here:
         When current players is intialized to zero and player count is taken its immediately sent up to initializePlayers
@@ -766,7 +845,7 @@ int main()
         renderIsland(island, size);
         currentPlayer++;
         
-        if(currentPlayer == playerCount)
+        if(currentPlayer == (playerCount - 1))
         {
             currentPlayer = 0;
         }
