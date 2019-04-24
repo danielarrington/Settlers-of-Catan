@@ -16,6 +16,9 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size);
 
+// Global variables
+int currentPlayer = 0;
+
 void buildIsland(vector<Tile*> &island, int size, int playerCount)
 {
     for (int i = 0; i < (size * size) - playerCount; i++)
@@ -479,7 +482,8 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
 
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
-    int playerChoice, resourceChoice, amountChoice = 0;
+    int playerChoice, giveRsrc, giveAmt, recRsrc, recAmt = 0;
+    bool response;
     
     cout << "Who would you like to trade with?" << endl;
         
@@ -516,11 +520,37 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     cout << "3: Grain" << endl;
     cout << "4: Wool" << endl;
     cout << "5: Ore" << endl;
-    cin >> resourceChoice;
+    cin >> giveRsrc;
     
-    switch(resourceChoice){
-    case 1:
-        cout << "How much wood ";
+    
+    // Work in progress
+    switch(giveRsrc){
+        case 1:
+            do{
+                cout << "How many wood?";
+                cin >> giveAmt;
+            if (players.at(player - 1)->getWood() <= giveAmt)
+                cout << "You dont have enough resources for that trade. Try again." << endl;
+        case 2:
+            cout << "How many brick?";
+            cin >> giveAmt;
+            if (players.at(player - 1)->getBricks() <= giveAmt)
+                cout << "You dont have enough resources for that trade. Try again." << endl;
+        case 3:
+            cout << "How many grain?";
+            cin >> giveAmt;
+            if (players.at(player - 1)->getGrain() <= giveAmt)
+                cout << "You dont have enough resources for that trade. Try again." << endl;
+        case 4:
+            cout << "How many wool?";
+            cin >> giveAmt;
+            if (players.at(player - 1)->getWool() <= giveAmt)
+                cout << "You dont have enough resources for that trade. Try again." << endl;
+        case 5:
+            cout << "How many ore?";
+            cin >> giveAmt;
+            if (players.at(player - 1)->getOre() <= giveAmt)
+                cout << "You dont have enough resources for that trade. Try again." << endl;
     }
     
 }
@@ -564,7 +594,6 @@ int main()
    // vector<Card*> deck;
     int size;
     int playerCount;
-    int currentPlayer = 0;
     int roll = 0;
     
     vector<Tile*> island;
