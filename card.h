@@ -1,7 +1,7 @@
 #ifndef CARD_H
 #define CARD_H
 
-using namespace std;
+//using namespace std;
 
 class Card
 {
