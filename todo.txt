@@ -3,3 +3,4 @@
         3) Bug check trading functionality
         4) Bug check buyCity functionality
         5) QoL and terminal output improvements
+        6) Modify child functions of takeTurn to allow for paramaters (players, island, deck, player, size)

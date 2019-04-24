@@ -14,6 +14,8 @@ void renderIsland(vector<Tile*> island, int size);
 void initializePlayers(vector<Player*> &players, int playerCount);
 void resources(vector<Player*> &players, int z);
 void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
+void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
+void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
@@ -420,7 +422,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
     }
 }
 
-void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int player)
+void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int type = deck.at(deck.size() - 1)->getType();
     deck.pop_back();
@@ -530,7 +532,7 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int playe
     }
 }
 
-void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int row, column; //Variables which store inputs for row and column
     int index; //Variable which stores calculated index in the island vector
@@ -592,14 +594,14 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int si
         renderIsland(island, size);
         cout << endl << "This is not your Settlement" << endl;
         cout << "Please choose another tile." << endl << endl;
-        buyCity(players, island, player, size);
+        buyCity(players, island, deck, player, size);
     }
     else if((island.at(index)->getOwner() / 10) == (player + 1))
     {
         renderIsland(island, size);
         cout << endl << "You already have a city here." << endl;
         cout << "Please choose another tile." << endl << endl;
-        buyCity(players, island, player, size);
+        buyCity(players, island, deck, player, size);
     }
     
     //The selected tile is not already settled
@@ -610,8 +612,9 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int si
         int owner = island.at(index)->getOwner();
         owner = owner * 10;
         island.at(index) = new cityTile((LandType)land, value, owner); 
-        players.at(player - 1)->modifyWood(-1);
-        players.at(player - 1)->modifyGrain(-3);
+        players.at(player)->modifyWood(-1);
+        players.at(player)->modifyGrain(-3);
+        takeTurn(players, island, deck, currentPlayer, size);
     }
 }
 
@@ -656,7 +659,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &d
         {
             if(players.at(player)->getOre() >= 2 && players.at(player)->getGrain() >= 3)
             {
-                buyCity(players, island, player, size);//Call function for buying a city
+                buyCity(players, island, deck, player, size);//Call function for buying a city
             }
             else
             {
@@ -668,7 +671,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &d
         {
             if(players.at(player)->getOre() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
             {
-                buyDevelopmentCard(players, deck, player);
+                buyDevelopmentCard(players, island, deck, player, size);
             }
             else
             {
