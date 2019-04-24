@@ -6,6 +6,7 @@
 using namespace std;
 
 // Function declarations
+void diceRoll(vector<Player*> &players, vector<Tile*> &island);
 void buildDeck(vector<Card*> &deck);
 void shuffleDeck(vector<Card*> &deck);
 void buildIsland(vector<Tile*> &island, int size, int playerCount);
@@ -24,6 +25,74 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
 int currentPlayer = 0;
 int choice = 0;
 int roll = 0;
+
+void diceRoll(vector<Player*> &players, vector<Tile*> &island)
+{
+    int owner;
+    int land;
+    roll = (rand() % 11) + 2;
+    cout << "Dice roll: " << roll << endl;
+    //Go through each island tile
+    for(int i = 0; i < island.size(); i++)
+    {
+        //Check that the current tile has an owner
+        if(island.at(i)->getOwner() != -1)
+        {
+            //If the current tile is a city, get the owner
+            if(island.at(i)->getOwner() / 10 > 0)
+            {
+                owner = (island.at(i)->getOwner()) / 10;
+                if(roll == island.at(i)->getNumber())
+                {
+                    land = island.at(i)->getLand();
+                    switch (land)
+                    {
+                        case 0:
+                            players.at(owner - 1)->modifyWood(1);
+                            break;
+                        case 1:
+                            players.at(owner - 1)->modifyBricks(1);
+                            break;
+                        case 2:
+                            players.at(owner - 1)->modifyGrain(1);
+                            break;
+                        case 3:
+                            players.at(owner - 1)->modifyWool(1);
+                            break;
+                        case 4:
+                            players.at(owner - 1)->modifyOre(1);
+                    }
+                }
+            }
+            //If the current tile is just a settlement
+            else
+            {
+                owner = island.at(i)->getOwner();
+                if(roll == island.at(i)->getNumber())
+                {
+                    land = island.at(i)->getLand();
+                    switch (land)
+                    {
+                        case 0:
+                            players.at(owner - 1)->modifyWood(1);
+                            break;
+                        case 1:
+                            players.at(owner - 1)->modifyBricks(1);
+                            break;
+                        case 2:
+                            players.at(owner - 1)->modifyGrain(1);
+                            break;
+                        case 3:
+                            players.at(owner - 1)->modifyWool(1);
+                            break;
+                        case 4:
+                            players.at(owner - 1)->modifyOre(1);
+                    }
+                }
+            }
+        }
+    }
+}
 
 // Function definitions
 void buildDeck(vector<Card*> &deck)
@@ -992,6 +1061,8 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
     {
         //Show the island
         renderIsland(island, size);
+        //Roll dice
+        diceRoll(players, island);
         //Display the current players name and show the number of resources they have
         cout << players.at(player)->getName() << "'s turn." << endl;
         resources(players, player);

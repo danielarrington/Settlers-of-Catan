@@ -4,4 +4,4 @@
         4) Bug check buyCity functionality
         5) QoL and terminal output improvements
         6) Modify child functions of takeTurn to allow for paramaters (players, island, deck, player, size)
-        7) Implement resource gains on dice rolls
+Done    7) Implement resource gains on dice rolls
