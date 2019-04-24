@@ -139,3 +139,51 @@ string SettledTile::render(int line){
             return " ";
     }
 }
+cityTile::cityTile(LandType l, int n, int o){
+    setLand(l);
+    setNumber(n);
+    setOwner(o);
+}
+string cityTile::render(int line){
+    stringstream ss;
+    stringstream ss2;
+    switch(line){
+        case 0: return " ___________ ";
+        case 1: 
+            switch(land){
+            case FOREST:
+                ss << "|Forest   " << setw(2) << number << "|";
+                return ss.str();
+                break;
+            case HILLS:
+                ss << "|Hills    " << setw(2) << number << "|";
+                return ss.str();
+                break;
+            case FIELD:
+                ss << "|Field    " << setw(2) << number << "|";
+                return ss.str();
+                break;
+            case PASTURE:
+                ss << "|Pasture  " << setw(2) << number << "|";
+                return ss.str();
+                break;
+            case MOUNTAIN:
+                ss << "|Mountain " << setw(2) << number << "|";
+                return ss.str();
+                break;
+            default:
+                return "|           |";
+                break;
+            break;
+            }
+        case 2: return "| /TTTTTTT\\ |";
+        case 3: return "| |_|_|_|_| |";
+        case 4: return "| |_|-|-|_| |";
+        case 5: 
+            ss2 << "|     " << owner / 10 << "     |";
+            return ss2.str();
+        case 6: return "|o|_|___|_|o|";
+        default:
+            return " ";
+    }
+}

@@ -45,5 +45,12 @@ class SettledTile : public Tile{
     string render(int);
     
 };
-
+class cityTile : public Tile{
+    public:
+    // Need to add parameter to pass in which player established settlement
+    cityTile(LandType, int, int);
+    // Need to add rendering for player settlement
+    string render(int);
+    
+};
 #endif

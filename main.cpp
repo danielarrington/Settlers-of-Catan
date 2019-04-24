@@ -492,7 +492,7 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int si
         int value = island.at(index)->getNumber(); //Sae the number of the current tile
         int owner = island.at(index)->getOwner();
         owner = owner * 10;
-        //island.at(index) = new cityTile((LandType)land, value, owner); ->>>>>>>>>>>>> needs to be added in tile
+        island.at(index) = new cityTile((LandType)land, value, owner); 
         players.at(player - 1)->modifyWood(-1);
         players.at(player - 1)->modifyGrain(-3);
     }
