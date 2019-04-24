@@ -1041,20 +1041,27 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &de
 
 int main()
 {
+    //Seed the random number generator
     srand(time(0));
+    //Declare variables used to store size of n x n island
+    //as well as number of players in the game
     int size;
     int playerCount;
-
+    //Declare variables for the current player indicator as
+    //well as the dice roll value and initialize them at 0
     int currentPlayer = 0;
     int roll = 0;
-    
+    //Create vectors to store tile objects for the island,
+    //player objects for each player, and card objects for
+    //the development card deck
     vector<Tile*> island;
     vector<Player*> players;
     vector<Card*> deck;
     
+    //Prompt user to input size for an n x n island, then store in size variable
     cout << "Enter a value for 'n' between 4 and 7 to create an 'n' by 'n' island: ";
     cin >> size;
-    
+    //Validate size input
     while (size < 4 || size > 7)
     {
         cout << "INVALID SIZE!" << endl;
@@ -1062,9 +1069,10 @@ int main()
         cin >> size;
     }
     
+    //Prompt user to input number of players
     cout << "How many players will there be? (2-4): ";
     cin >> playerCount;
-    
+    //Validate input for number of players
     while (playerCount < 2 || playerCount > 4)
     {
         cout << "INVALID PLAYER COUNT!" << endl;
@@ -1072,16 +1080,24 @@ int main()
         cin >> playerCount;
     }
     
+    //Build player vector
     initializePlayers(players, playerCount);
+    //Build island vector
     buildIsland(island, size, playerCount);
+    //Shuffle the elements in the island vector to promote randomness
     shuffleIsland(island);
+    //Display the island
     renderIsland(island, size);
     
+    //Loop to continue gameplay until a player reaches 10 victory points
     while(players.at(currentPlayer)->getVictoryPoints() < 10)
     {
+        //Output to display the current player's name as well as their resources
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
+        //Dice roll
         roll = (rand() % 11 + 2);
+        //Functionality for turn taking
         takeTurn(players, island, deck, currentPlayer, size); 
         /* ********Look at this line and look at intialize players line, to make it easier for you******
         to see I'll copy and paste it here:
@@ -1117,9 +1133,15 @@ int main()
 }
 
 */
+        //Re-render island when user choses to end their turn
         renderIsland(island, size);
+        //Increment current player counter
         currentPlayer++;
-        
+        //Validate that the current player does not exceed the total
+        //number of players. currentPlayer variable maximum should never
+        //exceed (playerCount - 1) because playerCount is a raw integer that
+        //is used to indicate the true number of players, whereas currentPlayer
+        //is used as index to reference the player vector (which starts at 0).
         if(currentPlayer == (playerCount - 1))
         {
             currentPlayer = 0;
