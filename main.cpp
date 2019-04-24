@@ -193,12 +193,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(1)->getOwner() == player || island.at(size)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -216,12 +217,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(size - 1)->getOwner() == player || island.at((size * 2) - 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -236,15 +238,16 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
             else
             {
                 //Verifies that the player owns a settlement either to the left of, to the right of, or below the chosen tile
-                if(island.at(column - 2)->getOwner() == player || island.at(column)->getOwner() == player || island.at(size + column)->getOwner() == player)
+                if(island.at(column - 2)->getOwner() == player || island.at(column)->getOwner() == player || island.at(size + column - 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -266,12 +269,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index + 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -289,12 +293,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -312,12 +317,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - 1)->getOwner() == player || island.at(index + 1)->getOwner() == player || island.at(index - size)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -339,12 +345,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player )
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -362,12 +369,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index - 1)->getOwner() == player || island.at(index + 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -385,12 +393,13 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
                 if(island.at(index - size)->getOwner() == player || island.at(index + size)->getOwner() == player || island.at(index + 1)->getOwner() == player || island.at(index - 1)->getOwner() == player)
                 {
                     island.at(index) = new SettledTile((LandType)land, value, player);
-                    players.at(player)->modifyWood(players.at(player)->getWood() - 1);
-                    players.at(player)->modifyBricks(players.at(player)->getBricks() - 1);
-                    players.at(player)->modifyGrain(players.at(player)->getGrain() - 1);
-                    players.at(player)->modifyWool(players.at(player)->getWool() - 1);
-                    players.at(player)->modifyOre(players.at(player)->getOre() - 1);
+                    players.at(player - 1)->modifyWood(-1);
+                    players.at(player - 1)->modifyBricks(-1);
+                    players.at(player - 1)->modifyGrain(-1);
+                    players.at(player - 1)->modifyWool(-1);
+                    players.at(player - 1)->modifyOre(-1);
                     renderIsland(island, size);
+                    takeTurn(players, island, player, size);
                 }
                 else
                 {
@@ -429,17 +438,42 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
         }
         
         //Fork to follow if user chooses to buy a settlement if they have enough resources
-        if (choice == 1 && players.at(player)->getWood() >= 1 && players.at(player)->getBricks() >= 1 && players.at(player)->getGrain() >= 1 && players.at(player)->getWool() >= 1)
+        if (choice == 1)
         {
-            buySettlement(players, island, player, size); // theres an error
+            if(players.at(player - 1)->getWood() >= 1 && players.at(player - 1)->getBricks() >= 1 && players.at(player - 1)->getGrain() >= 1 && players.at(player - 1)->getWool() >= 1)
+            {
+                buySettlement(players, island, player, size); // theres an error
+            }
+            else
+            {
+                cout << "You do not have enough resources to build a settlement." << endl;
+                takeTurn(players, island, player, size);
+            }
         }
-        //Fork that informs the player that they don't have enough resources if they choose to build a settlement
-        else if(choice == 1 && (players.at(player)->getWood() == 0 || players.at(player)->getBricks() == 0 || players.at(player)->getGrain() == 0 || players.at(player)->getWool() == 0))
+        else if (choice == 2)
         {
-            cout << "You do not have enough resources to build a settlement." << endl;
-            takeTurn(players, island, player, size);
+            if(players.at(player - 1)->getOre() >= 2 && players.at(player - 1)->getGrain() >= 3)
+            {
+                //Call function for buying a city
+            }
+            else
+            {
+                cout << "You do not have enough resources to build a city." << endl;
+                takeTurn(players, island, player, size);
+            }
         }
-        
+        else if (choice == 3)
+        {
+            if(players.at(player - 1)->getOre() >= 1 && players.at(player - 1)->getGrain() >= 1 && players.at(player - 1)->getWool())
+            {
+                //Call function for buying a development card
+            }
+            else
+            {
+                cout << "You do not have enough resources to buy a development card." << endl;
+                takeTurn(players, island, player, size);
+            }
+        }
     }
 }
 
@@ -483,7 +517,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     cout << "3: Grain" << endl;
     cout << "4: Wool" << endl;
     cout << "5: Ore" << endl;
-    
 }
 
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size)
@@ -600,7 +633,7 @@ int main()
         
         currentPlayer++;
         
-        if(currentPlayer == playerCount + 1)
+        if(currentPlayer == (playerCount + 1))
         {
             currentPlayer = 0;
         }
