@@ -596,7 +596,7 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
         cout << "Please choose another tile." << endl << endl;
         buyCity(players, island, deck, player, size);
     }
-    else if((island.at(index)->getOwner() / 10) == (player + 1))
+    else if((island.at(index)->getOwner() / 10) == (player + 1)) // i didnt put this plus one in it just spawned there, do we need this????
     {
         renderIsland(island, size);
         cout << endl << "You already have a city here." << endl;
@@ -614,6 +614,7 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
         island.at(index) = new cityTile((LandType)land, value, owner); 
         players.at(player)->modifyWood(-1);
         players.at(player)->modifyGrain(-3);
+        players.at(player - 1)->modifyVictoryPoints(1);
         takeTurn(players, island, deck, currentPlayer, size);
     }
 }
