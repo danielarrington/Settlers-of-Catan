@@ -18,10 +18,12 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<
 void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
-void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
+int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size);
 
 // Global variables
 int currentPlayer = 0;
+int choice = 0;
+int roll = 0;
 
 // Function definitions
 void buildDeck(vector<Card*> &deck)
@@ -126,6 +128,8 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
     int row, column; //Variables which store inputs for row and column
     int index; //Variable which stores calculated index in the island vector
     
+    cout << endl << "DEBUG............ player: " << player << endl;
+    
     cout << "BUYING A SETTLEMENT" << endl;
     cout << "On which row is the desired tile located?" << endl;
     
@@ -172,8 +176,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
     
     //Calculates the index in the vector based off of the row and column input
     index = (size * (row - 1)) + (column - 1);
-    cout << index << endl;
-    cout << endl << "Vector index: " << (index + 1) << endl;
+    cout << endl << endl << "Vector index: " << index << endl;
     cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
     
     //Produce a message to the user if there is already a settlement at
@@ -207,7 +210,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -231,7 +233,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -255,7 +256,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -283,7 +283,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -307,7 +306,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -331,7 +329,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -351,7 +348,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
             if(column == 1)
             {
                 //Verifies that the player owns a settlement either above, below, or to the right of the chosen tile
-                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1))
+                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1) || island.at(index + 1)->getOwner() == (player + 1))
                 {
                     island.at(index) = new SettledTile((LandType)land, value, (player + 1));
                     players.at(player)->modifyWood(-1);
@@ -359,7 +356,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -375,7 +371,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
             else if(column == size)
             {
                 //Verifies that the player owns a settlement either above, below, or to the left of the chosen tile
-                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1) || island.at(index - 1)->getOwner() == (player + 1) || island.at(index + 1)->getOwner() == player)
+                if(island.at(index - size)->getOwner() == (player + 1) || island.at(index + size)->getOwner() == (player + 1) || island.at(index - 1)->getOwner() == (player + 1))
                 {
                     island.at(index) = new SettledTile((LandType)land, value, (player + 1));
                     players.at(player)->modifyWood(-1);
@@ -383,7 +379,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -407,7 +402,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    renderIsland(island, size);
                     takeTurn(players, island, deck, player, size);
                 }
                 else
@@ -620,8 +614,6 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
 
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
-    int choice = 0;
-    
     while (choice != 4)
     {
         cout << "What would you like to buy?" << endl;
@@ -993,53 +985,57 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     }
 }
 
-void takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
+int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
-    int choice = 0; //Variable to store user menu input
-    
-    while (choice != 4)
+    while(players.at(player)->getVictoryPoints() < 10)
     {
-    //Prompt user for move choice
-    cout << "What would you like to do?" << endl;
-    cout << "1: Buy" << endl;
-    cout << "2: Trade" << endl;
-    cout << "3: Swap" << endl;
-    cout << "4: End Turn" << endl;
-    cin >> choice;
-    
-    //Test to ensure input is valid
-    while (choice < 1 || choice > 4)
-    {
-        cout << "INVALID CHOICE!" << endl;
+        //Show the island
+        renderIsland(island, size);
+        //Display the current players name and show the number of resources they have
+        cout << players.at(player)->getName() << "'s turn." << endl;
+        resources(players, player);
+        
+        //Prompt user for move choice
+        cout << "What would you like to do?" << endl;
         cout << "1: Buy" << endl;
         cout << "2: Trade" << endl;
         cout << "3: Swap" << endl;
         cout << "4: End Turn" << endl;
         cin >> choice;
-    }
-
-    // Buy
-    if (choice == 1)
-        buyPrompt(players, island, deck, player, size);
-    // Trade
-    else if (choice == 2)
-        tradePrompt(players, island, player, size);
-    //Swap three resources for one
-    else if (choice == 3)
-    {
-        //Implement code to swap resources
-    }
         
-
-    //Swap three cards for one
-    //else if (choice == 3)
-        //Implement code to swap cards
-
-
-    //Swap three cards for one
-    //else if (choice == 3)
-        //Implement code to swap cards
+        //Test to ensure input is valid
+        while (choice < 1 || choice > 4)
+        {
+            cout << "INVALID CHOICE!" << endl;
+            cout << "1: Buy" << endl;
+            cout << "2: Trade" << endl;
+            cout << "3: Swap" << endl;
+            cout << "4: End Turn" << endl;
+            cin >> choice;
+        }
+    
+        // Buy
+        if (choice == 1)
+            buyPrompt(players, island, deck, player, size);
+        // Trade
+        else if (choice == 2)
+            tradePrompt(players, island, player, size);
+        //Swap three resources for one
+        else if (choice == 3)
+        {
+            //Implement code to swap resources
+        }
+        else
+        {
+            player++;
+            if(player >= players.size())
+            {
+                player = 0;
+            }
+            takeTurn(players, island, deck, player, size);
+        }
     }
+    return 0;
 }
 
 int main()
@@ -1050,10 +1046,6 @@ int main()
     //as well as number of players in the game
     int size;
     int playerCount;
-    //Declare variables for the current player indicator as
-    //well as the dice roll value and initialize them at 0
-    int currentPlayer = 0;
-    int roll = 0;
     //Create vectors to store tile objects for the island,
     //player objects for each player, and card objects for
     //the development card deck
@@ -1089,66 +1081,7 @@ int main()
     buildIsland(island, size, playerCount);
     //Shuffle the elements in the island vector to promote randomness
     shuffleIsland(island);
-    //Display the island
-    renderIsland(island, size);
-    
-    //Loop to continue gameplay until a player reaches 10 victory points
-    while(players.at(currentPlayer)->getVictoryPoints() < 10)
-    {
-        //Output to display the current player's name as well as their resources
-        cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
-        resources(players, currentPlayer);
-        //Dice roll
-        roll = (rand() % 11 + 2);
-        //Functionality for turn taking
-        takeTurn(players, island, deck, currentPlayer, size); 
-        /* ********Look at this line and look at intialize players line, to make it easier for you******
-        to see I'll copy and paste it here:
-        When current players is intialized to zero and player count is taken its immediately sent up to initializePlayers
-        takeTurn(players, island, currentPlayer + 1, size); causes you to skip over an entire player and when you want the last player to play their turn
-        it bugs out
-        But since initializePlayers FIRST value is actually zero, the program is skipping over an entire player
-        I've tried tweaking it a bunch but with the if loop in intialize players to help print their name I keep getting another error which is
-        the exact same thing that shows up. Ill keep looking at it, but 6 eyes are better than two :)
-        void initializePlayers(vector<Player*> &players, int playerCount)
-        {
-            string name;
-            for (int i = 0; i < playerCount; i++)
-            {   
-                cout << "What is Player " << (i + 1) << "'s name? ";
-                cin >> name;
-                players.push_back(new Player(name, 1, 1, 1, 1, 1, 0));
-            }
-        
-        cout << "Welcome to the Island of Catan";
-    
-        for (int i = 0; i < playerCount; i++)
-        {
-            if (i == playerCount - 1)
-            {
-                cout << " & " << players.at(i)->getName() << "." << endl;
-            }
-        else
-        {
-            cout << ", " << players.at(i)->getName();
-        }
-    }
-}
-
-*/
-        //Re-render island when user choses to end their turn
-        renderIsland(island, size);
-        //Increment current player counter
-        currentPlayer++;
-        //Validate that the current player does not exceed the total
-        //number of players. currentPlayer variable maximum should never
-        //exceed (playerCount - 1) because playerCount is a raw integer that
-        //is used to indicate the true number of players, whereas currentPlayer
-        //is used as index to reference the player vector (which starts at 0).
-        if(currentPlayer == (playerCount - 1))
-        {
-            currentPlayer = 0;
-        }
-    }
+    //Start first turn
+    takeTurn(players, island, deck, currentPlayer, size); 
     return 0;
 }
