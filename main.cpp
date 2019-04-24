@@ -596,7 +596,6 @@ int main()
     cout << "Island vector length: " << island.size() << endl; //DEBUGGING OUTPUT
     while(players.at(currentPlayer)->getVictoryPoints() < 10)
     {
-        currentPlayer;
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
@@ -638,7 +637,7 @@ int main()
         renderIsland(island, size);
         currentPlayer++;
         
-        if(currentPlayer == (playerCount + 1))
+        if(currentPlayer == playerCount)
         {
             currentPlayer = 0;
         }
