@@ -6,6 +6,8 @@
 using namespace std;
 
 // Function declarations
+void buildDeck(vector<Card*> &deck);
+void shuffleDeck(vector<Card*> &deck);
 void buildIsland(vector<Tile*> &island, int size, int playerCount);
 void shuffleIsland(vector<Tile*> &island);
 void renderIsland(vector<Tile*> island, int size);
@@ -18,6 +20,28 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
 
 // Global variables
 int currentPlayer = 0;
+
+void buildDeck(vector<Card*> &deck)
+{
+    for (int i = 0; i < 20; i++)
+    {
+        deck.push_back(new Card(i%5));
+    }
+}
+
+void shuffleDeck(vector<Card*> &deck)
+{
+    Card* temp;
+    int i1, i2;
+    for (int i = 0; i < 1000; i++)
+    {
+        i1 = rand() % deck.size();
+        i2 = rand() % deck.size();
+        temp = deck.at(i1);
+        deck.at(i1) = deck.at(i2);
+        deck.at(i2) = temp;
+    }
+}
 
 void buildIsland(vector<Tile*> &island, int size, int playerCount)
 {
@@ -43,29 +67,8 @@ void shuffleIsland(vector<Tile*> &island)
         island.at(i1) = island.at(i2);
         island.at(i2) = temp;
     }
-}/*
-void buildDeck(vector<int> deck)
-{
-    for(int t = ; t <= KNIGHT; t++)
-    {
-        for(int n = 0; n < 5; n++){
-            deck.push_back(new DevelopmentCard((developmentType)t,n));
-        }
-    }
 }
-void shuffleDevelopementCards(vector<Card*> &deck)
-{
-    Card* temp;
-    int idx1, idx2;
-    for(int i = 0; i < 500; i++){
-        idx1 = rand() % deck.size();
-        idx2 = rand() % deck.size();
-        
-        temp = deck.at(idx1);
-        deck.at(idx1) = deck.at(idx2);
-        deck.at(idx2) = temp;
-    }
-}*/
+
 void renderIsland(vector<Tile*> island, int size)
 {
     for (int s = 0; s < size; s++)
@@ -416,6 +419,125 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
 }
 
+void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int player)
+{
+    int type = deck.at(deck.size() - 1)->getType();
+    int input = 0;
+    int resource = rand() % 5;
+    
+    if(type == 0 || type == 1 || type == 2)
+    {
+        players.at(player - 1)->modifyVictoryPoints(1);
+    }
+    else if(type == 3)
+    {
+        players.at(player - 1)->modifyWood(1);
+        players.at(player - 1)->modifyBricks(1);
+        players.at(player - 1)->modifyGrain(1);
+        players.at(player - 1)->modifyWool(1);
+        players.at(player - 1)->modifyOre(1);
+    }
+    else
+    {
+        cout << "Choose a player to steal a random resource from: ";
+        cin >> input;
+        
+        while(input == player || input < 0 || input > players.size())
+        {
+            cout << "Invalid player choice." << endl;
+            cout << "Choose a player to steal a random resource from: ";
+            cin >> input;
+        }
+        
+        players.at(input - 1)->
+    }
+}
+
+void buyCity(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+{
+    int row, column; //Variables which store inputs for row and column
+    int index; //Variable which stores calculated index in the island vector
+    
+    cout << "BUYING A CITY" << endl;
+    cout << "On which row is the desired tile located?" << endl;
+    
+    for(int i = 1; i <= size; i++)
+    {
+        cout << "[" << i << "]" << endl;
+    }
+    
+    cin >> row;
+    
+    while(row < 1 || row > size)
+    {
+        cout << "Error: Row is out of range." << endl;
+        cout << "On which row is the desired tile located?" << endl;
+        
+        for(int i = 1; i <= size; i++)
+        {
+            cout << "[" << i << "]" << endl;
+        }
+        cin >> row;
+    }
+    
+    cout << "On which column is the desired tile located?" << endl;
+    
+    for(int i = 1; i <= size; i++)
+    {
+        cout << "[" << i << "] ";
+    }
+    cout << endl;
+    cin >> column;
+    
+    while(column < 1 || column > size)
+    {
+        cout << "Error: Column is out of range." << endl;
+        cout << "On which column is the desired tile located?" << endl;
+    
+        for(int i = 1; i <= size; i++)
+        {
+            cout << "[" << i << "] ";
+        }
+        cout << endl;
+        cin >> column;
+    }
+    
+    //Calculates the index in the vector based off of the row and column input
+    index = (size * (row - 1)) + (column - 1);
+    cout << index << endl;
+    cout << endl << "Vector index: " << (index + 1) << endl;
+    cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
+    
+    //Produce a message to the user if there is already a settlement at
+    //the selected tile
+    if(island.at(index)->getOwner() != player && (island.at(index)->getOwner()) % 10 != player)
+    {
+        renderIsland(island, size);
+        cout << endl << "This is not your Settlement" << endl;
+        cout << "Please choose another tile." << endl << endl;
+        buyCity(players, island, player, size);
+    }
+    else if(island.at(index)->getOwner() % 10 == player)
+    {
+        renderIsland(island, size);
+        cout << endl << "You already have a city here." << endl;
+        cout << "Please choose another tile." << endl << endl;
+        buyCity(players, island, player, size);
+    }
+    
+    //The selected tile is not already settled
+    else
+    {
+        int land = island.at(index)->getLand(); //Save the landtype of the current tile
+        int value = island.at(index)->getNumber(); //Sae the number of the current tile
+        int owner = island.at(index)->getOwner();
+        owner = owner * 10;
+        island.at(index) = new cityTile((LandType)land, value, owner); 
+        players.at(player - 1)->modifyWood(-1);
+        players.at(player - 1)->modifyGrain(-3);
+    }
+}
+
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int choice = 0;
@@ -457,7 +579,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
         {
             if(players.at(player - 1)->getOre() >= 2 && players.at(player - 1)->getGrain() >= 3)
             {
-                //Call function for buying a city
+                buyCity(players, island, player, size);//Call function for buying a city
             }
             else
             {
@@ -559,23 +681,25 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
 {
     int choice = 0; //Variable to store user menu input
     
-    while (choice != 3)
+    while (choice != 4)
     {
     //Prompt user for move choice
     cout << "What would you like to do?" << endl;
     cout << "1: Buy" << endl;
     cout << "2: Trade" << endl;
-    cout << "3: End Turn" << endl;
+    cout << "3: Swap" << endl;
+    cout << "4: End Turn" << endl;
     cin >> choice;
     
     //Test to ensure input is valid
-    while (choice < 1 || choice > 3)
+    while (choice < 1 || choice > 4)
     {
         
         cout << "INVALID CHOICE!" << endl;
         cout << "1: Buy" << endl;
         cout << "2: Trade" << endl;
-        cout << "3: End Turn" << endl;
+        cout << "3: Swap" << endl;
+        cout << "4: End Turn" << endl;
         cin >> choice;
     }
 
@@ -585,6 +709,9 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
     // Trade
     else if (choice == 2)
         tradePrompt(players, island, player, size);
+    //Swap three cards for one
+    else if (choice == 3)
+        //Implement code to swap cards
     }
 }
 
@@ -594,10 +721,12 @@ int main()
    // vector<Card*> deck;
     int size;
     int playerCount;
+    int currentPlayer = 1;
     int roll = 0;
     
     vector<Tile*> island;
     vector<Player*> players;
+    vector<Card*> deck;
     
     cout << "Enter a value for 'n' between 4 and 7 to create an 'n' by 'n' island: ";
     cin >> size;
@@ -628,7 +757,7 @@ int main()
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
-        takeTurn(players, island, currentPlayer + 1, size); 
+        takeTurn(players, island, currentPlayer, size); 
         /* ********Look at this line and look at intialize players line, to make it easier for you******
         to see I'll copy and paste it here:
         When current players is intialized to zero and player count is taken its immediately sent up to initializePlayers
