@@ -6,6 +6,8 @@
 using namespace std;
 
 // Function declarations
+void buildDeck(vector<Card*> &deck);
+void shuffleDeck(vector<Card*> &deck);
 void buildIsland(vector<Tile*> &island, int size, int playerCount);
 void shuffleIsland(vector<Tile*> &island);
 void renderIsland(vector<Tile*> island, int size);
@@ -15,6 +17,29 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size);
 void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int size);
+
+
+void buildDeck(vector<Card*> &deck)
+{
+    for (int i = 0; i < 20; i++)
+    {
+        deck.push_back(new Card(i%5));
+    }
+}
+
+void shuffleDeck(vector<Card*> &deck)
+{
+    Card* temp;
+    int i1, i2;
+    for (int i = 0; i < 1000; i++)
+    {
+        i1 = rand() % deck.size();
+        i2 = rand() % deck.size();
+        temp = deck.at(i1);
+        deck.at(i1) = deck.at(i2);
+        deck.at(i2) = temp;
+    }
+}
 
 void buildIsland(vector<Tile*> &island, int size, int playerCount)
 {
@@ -40,29 +65,8 @@ void shuffleIsland(vector<Tile*> &island)
         island.at(i1) = island.at(i2);
         island.at(i2) = temp;
     }
-}/*
-void buildDeck(vector<int> deck)
-{
-    for(int t = ; t <= KNIGHT; t++)
-    {
-        for(int n = 0; n < 5; n++){
-            deck.push_back(new DevelopmentCard((developmentType)t,n));
-        }
-    }
 }
-void shuffleDevelopementCards(vector<Card*> &deck)
-{
-    Card* temp;
-    int idx1, idx2;
-    for(int i = 0; i < 500; i++){
-        idx1 = rand() % deck.size();
-        idx2 = rand() % deck.size();
-        
-        temp = deck.at(idx1);
-        deck.at(idx1) = deck.at(idx2);
-        deck.at(idx2) = temp;
-    }
-}*/
+
 void renderIsland(vector<Tile*> island, int size)
 {
     for (int s = 0; s < size; s++)
@@ -413,6 +417,40 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, int player, 
     }
 }
 
+void buyDevelopmentCard(vector<Player*> &players, vector<Card*> &deck, int player)
+{
+    int type = deck.at(deck.size() - 1)->getType();
+    int input = 0;
+    int resource = rand() % 5;
+    
+    if(type == 0 || type == 1 || type == 2)
+    {
+        players.at(player - 1)->modifyVictoryPoints(1);
+    }
+    else if(type == 3)
+    {
+        players.at(player - 1)->modifyWood(1);
+        players.at(player - 1)->modifyBricks(1);
+        players.at(player - 1)->modifyGrain(1);
+        players.at(player - 1)->modifyWool(1);
+        players.at(player - 1)->modifyOre(1);
+    }
+    else
+    {
+        cout << "Choose a player to steal a random resource from: ";
+        cin >> input;
+        
+        while(input == player || input < 0 || input > players.size())
+        {
+            cout << "Invalid player choice." << endl;
+            cout << "Choose a player to steal a random resource from: ";
+            cin >> input;
+        }
+        
+        players.at(input - 1)->
+    }
+}
+
 void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
     int choice = 0;
@@ -523,23 +561,25 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
 {
     int choice = 0; //Variable to store user menu input
     
-    while (choice != 3)
+    while (choice != 4)
     {
     //Prompt user for move choice
     cout << "What would you like to do?" << endl;
     cout << "1: Buy" << endl;
     cout << "2: Trade" << endl;
-    cout << "3: End Turn" << endl;
+    cout << "3: Swap" << endl;
+    cout << "4: End Turn" << endl;
     cin >> choice;
     
     //Test to ensure input is valid
-    while (choice < 1 || choice > 3)
+    while (choice < 1 || choice > 4)
     {
         
         cout << "INVALID CHOICE!" << endl;
         cout << "1: Buy" << endl;
         cout << "2: Trade" << endl;
-        cout << "3: End Turn" << endl;
+        cout << "3: Swap" << endl;
+        cout << "4: End Turn" << endl;
         cin >> choice;
     }
 
@@ -549,6 +589,9 @@ void takeTurn(vector<Player*> &players, vector<Tile*> &island, int player, int s
     // Trade
     else if (choice == 2)
         tradePrompt(players, island, player, size);
+    //Swap three cards for one
+    else if (choice == 3)
+        //Implement code to swap cards
     }
 }
 
@@ -563,6 +606,7 @@ int main()
     
     vector<Tile*> island;
     vector<Player*> players;
+    vector<Card*> deck;
     
     cout << "Enter a value for 'n' between 4 and 7 to create an 'n' by 'n' island: ";
     cin >> size;
