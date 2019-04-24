@@ -445,7 +445,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, int player, int 
 
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
 {
-    int playerChoice, resourceChoice = 0;
+    int playerChoice, resourceChoice, amountChoice = 0;
     
     cout << "Who would you like to trade with?" << endl;
         
@@ -473,20 +473,21 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
                 resources(players, i);
             }
         }
-        
         cin >> playerChoice;
     }
     
-    cout << "Which resource would you like to trade?" << endl;
+    cout << "Which resource would you like to give " << players.at(playerChoice-1)->getName() << "?" << endl;
     cout << "1: Wood" << endl;
-    cout << "2: Bricks" << endl;
+    cout << "2: Brick" << endl;
     cout << "3: Grain" << endl;
     cout << "4: Wool" << endl;
     cout << "5: Ore" << endl;
     cin >> resourceChoice;
     
-    
-    
+    switch(resourceChoice){
+    case 1:
+        cout << "How much wood ";
+    }
     
 }
 
@@ -559,9 +560,9 @@ int main()
     shuffleIsland(island);
     renderIsland(island, size);
     cout << "Island vector length: " << island.size() << endl; //DEBUGGING OUTPUT
-    
     while(players.at(currentPlayer)->getVictoryPoints() < 10)
     {
+        currentPlayer;
         cout << players.at(currentPlayer)->getName() << "'s turn." << endl;
         resources(players, currentPlayer);
         roll = (rand() % 11 + 2);
@@ -602,7 +603,7 @@ int main()
 */
         renderIsland(island, size);
         currentPlayer++;
-        if(currentPlayer == playerCount + 1)
+        if(currentPlayer == (playerCount + 1))
         {
             currentPlayer = 0;
         }
