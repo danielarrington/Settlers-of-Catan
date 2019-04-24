@@ -1,0 +1,5 @@
+        1) Finish implementing development cards
+        2) Bug check buySettlement functionality
+        3) Bug check trading functionality
+        4) Bug check buyCity functionality
+        5) QoL and terminal output improvements
