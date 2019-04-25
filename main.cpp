@@ -165,7 +165,7 @@ void initializePlayers(vector<Player*> &players, int playerCount)
     {
         cout << "What is Player " << (i + 1) << "'s name? ";
         cin >> name;
-        players.push_back(new Player(name, 5, 5, 5, 5, 5, 7));
+        players.push_back(new Player(name, 1, 1, 1, 1, 1, 0));
     }
     
     cout << "Welcome to the Island of Catan";
