@@ -490,6 +490,7 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<
 {
     int type = deck.at((deck.size() - 1))->getType();
     deck.pop_back();
+    deck.insert(deck.begin(), new Card(type));
     int input = 0;
     int resource = rand() % 5;
     
@@ -522,7 +523,7 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<
     else if(type == 3)
     {
         cout << "You drew a Harvest Bounty card." << endl;
-        cout << "You have been awarding one of each resource!" << endl << endl;
+        cout << "You have been awarded one of each resource!" << endl << endl;
         players.at(player)->modifyWood(1);
         players.at(player)->modifyBricks(1);
         players.at(player)->modifyGrain(1);
@@ -674,39 +675,31 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
     
     //Calculates the index in the vector based off of the row and column input
     index = (size * (row - 1)) + (column - 1);
-    cout << index << endl;
-    cout << endl << "Vector index: " << (index + 1) << endl;
-    cout << "Owner: " << island.at(index)->getOwner() << endl << endl;
     
-    //Produce a message to the user if there is already a settlement at
-    //the selected tile
-    if(island.at(index)->getOwner() != (player + 1) && ((island.at(index)->getOwner()) / 10) != (player + 1))
-    {
-        renderIsland(island, size);
-        cout << endl << "This is not your Settlement" << endl;
-        cout << "Please choose another tile." << endl << endl;
-        buyCity(players, island, deck, player, size);
-    }
-    else if((island.at(index)->getOwner() / 10) == (player + 1)) // i didnt put this plus one in it just spawned there, do we need this????
-    {
-        renderIsland(island, size);
-        cout << endl << "You already have a city here." << endl;
-        cout << "Please choose another tile." << endl << endl;
-        buyCity(players, island, deck, player, size);
-    }
-    
-    //The selected tile is not already settled
-    else
+    //Test to see if player owns a settlement here
+    if(island.at(index)->getOwner() == (player + 1))
     {
         int land = island.at(index)->getLand(); //Save the landtype of the current tile
         int value = island.at(index)->getNumber(); //Sae the number of the current tile
         int owner = island.at(index)->getOwner();
         owner = owner * 10;
         island.at(index) = new cityTile((LandType)land, value, owner); 
-        players.at(player)->modifyWood(-1);
+        players.at(player)->modifyOre(-2);
         players.at(player)->modifyGrain(-3);
         players.at(player)->modifyVictoryPoints(1);
+        renderIsland(island, size);
         takeTurn(players, island, deck, player, size);
+    }
+    else if((island.at(index)->getOwner() / 10) == (player + 1))
+    {
+        cout << "You already own a city here." << endl;
+        buyCity(players, island, deck, player, size);
+    }
+    else
+    {
+        cout << endl << "You do not own a settlement here." << endl;
+        cout << "Please choose another tile." << endl << endl;
+        buyCity(players, island, deck, player, size); 
     }
 }
 
