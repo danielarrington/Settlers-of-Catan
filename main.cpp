@@ -190,7 +190,7 @@ void resources(vector<Player*> &players, int z)
     cout << "   Bricks: " << players.at(z)->getBricks();
     cout << "   Grain: " << players.at(z)->getGrain();
     cout << "   Wool: " << players.at(z)->getWool();
-    cout << "   Ore:" << players.at(z)->getOre() << endl;
+    cout << "   Ore: " << players.at(z)->getOre() << endl;
 }
 
 void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
@@ -277,7 +277,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -300,7 +299,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -323,7 +321,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -350,7 +347,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -373,7 +369,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -396,7 +391,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -423,7 +417,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -446,7 +439,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
@@ -469,7 +461,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyBricks(-1);
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
-                    players.at(player)->modifyOre(-1);
                     players.at(player)->modifyVictoryPoints(1);
                 }
                 else
