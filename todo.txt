@@ -5,3 +5,6 @@
         5) QoL and terminal output improvements
         6) Modify child functions of takeTurn to allow for paramaters (players, island, deck, player, size)
 Done    7) Implement resource gains on dice rolls
+        8) Add functionality for swaping out 3 resources
+        9) ??? Should we remove the warning when trying to trade a resource you don't have to another player?
+        10) Trading for player 2+ doesn't work

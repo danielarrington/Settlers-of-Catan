@@ -9,8 +9,8 @@ class Card
         int type;
         
     public:
-        Card(int type);
-        
+        Card(int);
+        void setType(int);
         int getType();
 };
 

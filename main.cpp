@@ -99,7 +99,7 @@ void buildDeck(vector<Card*> &deck)
 {
     for (int i = 0; i < 20; i++)
     {
-        deck.push_back(new Card(i%5));
+        deck.push_back(new Card(i % 5));
     }
 }
 
@@ -185,11 +185,12 @@ void initializePlayers(vector<Player*> &players, int playerCount)
 
 void resources(vector<Player*> &players, int z)
 {
-    cout << "Wood(" << players.at(z)->getWood();
-    cout << ") Bricks(" << players.at(z)->getBricks();
-    cout << ") Grain(" << players.at(z)->getGrain();
-    cout << ") Wool(" << players.at(z)->getWool();
-    cout << ") Ore(" << players.at(z)->getOre() << ")" << endl;
+    cout << "Victory Points: " << players.at(z)->getVictoryPoints() << endl;
+    cout << "Wood: " << players.at(z)->getWood();
+    cout << "   Bricks: " << players.at(z)->getBricks();
+    cout << "   Grain: " << players.at(z)->getGrain();
+    cout << "   Wool: " << players.at(z)->getWool();
+    cout << "   Ore:" << players.at(z)->getOre() << endl;
 }
 
 void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
@@ -487,46 +488,46 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
 
 void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
-    int type = deck.at(deck.size() - 1)->getType();
+    int type = deck.at((deck.size() - 1))->getType();
     deck.pop_back();
     int input = 0;
     int resource = rand() % 5;
     
-    players.at(player - 1)->modifyOre(-1);
-    players.at(player - 1)->modifyGrain(-1);
-    players.at(player - 1)->modifyWool(-1);
+    players.at(player)->modifyOre(-1);
+    players.at(player)->modifyGrain(-1);
+    players.at(player)->modifyWool(-1);
     
     //Library card is drawn
     if(type == 0)
     {
         cout << "You drew a Library card." << endl;
-        cout << "You have been awarded one victory point!" << endl;
-        players.at(player - 1)->modifyVictoryPoints(1);
+        cout << "You have been awarded one victory point!" << endl << endl;
+        players.at(player)->modifyVictoryPoints(1);
     }
     //University card is drawn
     else if(type == 1)
     {
         cout << "You drew a University card." << endl;
-        cout << "You have been awarded one victory point!" << endl;
-        players.at(player - 1)->modifyVictoryPoints(1);
+        cout << "You have been awarded one victory point!" << endl << endl;
+        players.at(player)->modifyVictoryPoints(1);
     }
     //Town hall card is drawn
     else if(type == 2)
     {
         cout << "You drew a Town Hall card." << endl;
-        cout << "You have been awarded one victory point!" << endl;
-        players.at(player - 1)->modifyVictoryPoints(1);
+        cout << "You have been awarded one victory point!" << endl << endl;
+        players.at(player)->modifyVictoryPoints(1);
     }
     //Harvest Bounty card is drawn
     else if(type == 3)
     {
         cout << "You drew a Harvest Bounty card." << endl;
-        cout << "You have been awarding one of each resource!" << endl;
-        players.at(player - 1)->modifyWood(1);
-        players.at(player - 1)->modifyBricks(1);
-        players.at(player - 1)->modifyGrain(1);
-        players.at(player - 1)->modifyWool(1);
-        players.at(player - 1)->modifyOre(1);
+        cout << "You have been awarding one of each resource!" << endl << endl;
+        players.at(player)->modifyWood(1);
+        players.at(player)->modifyBricks(1);
+        players.at(player)->modifyGrain(1);
+        players.at(player)->modifyWool(1);
+        players.at(player)->modifyOre(1);
     }
     //Knight card is drawn
     else
@@ -535,7 +536,7 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<
         cout << "Choose a player to steal a random resource from." << endl;
         for (int i = 0; i < players.size(); i++)
         {
-            if(i != (player - 1))
+            if(i != (player))
             {
                 cout << i+1 << ": " << players.at(i)->getName() << endl;
             }
@@ -545,52 +546,79 @@ void buyDevelopmentCard(vector<Player*> &players, vector<Tile*> &island, vector<
         while(input == player || input < 0 || input > players.size())
         {
             cout << "Invalid player choice." << endl;
-            cout << "Choose a player to steal a random resource from: ";
+            cout << "Choose a player to steal a random resource from." << endl;
+            for (int i = 0; i < players.size(); i++)
+            {
+                if(i != (player))
+                {
+                    cout << i+1 << ": " << players.at(i)->getName() << endl;
+                }
+            }
             cin >> input;
         }
         
         switch (resource)
         {
             case 0:
-                if(players.at(input - 1)->getWood() != 0)
+                if(players.at(input - 1)->getWood() > 0)
                 {
                     players.at(input - 1)->modifyWood(-1);
-                    players.at(player - 1)->modifyWood(1);
-                    cout << players.at(player - 1)->getName() << " stole 1 wood from " << players.at(input - 1)->getName() << "!" << endl;
-                    break;  
+                    cout << players.at(player)->getName() << " stole 1 wood from " << players.at(input - 1)->getName() << "!" << endl;
                 }
+                else
+                {
+                    cout << players.at(input - 1)->getName() << "does not have any wood. " << players.at(player)->getName() << " was gifted 1 wood." << endl;
+                }
+                players.at(player)->modifyWood(1);
+                break;
             case 1:
-                if(players.at(input - 1)->getBricks() != 0)
+                if(players.at(input - 1)->getBricks() > 0)
                 {
                     players.at(input - 1)->modifyBricks(-1);
-                    players.at(player - 1)->modifyBricks(1);
-                    cout << players.at(player - 1)->getName() << " stole 1 brick from " << players.at(input - 1)->getName() << "!" << endl;
-                    break;
+                    cout << players.at(player)->getName() << " stole 1 brick from " << players.at(input - 1)->getName() << "!" << endl;
                 }
+                else
+                {
+                    cout << players.at(input - 1)->getName() << "does not have any bricks. " << players.at(player)->getName() << " was gifted 1 brick." << endl;
+                }
+                players.at(player)->modifyBricks(1);
+                break;
             case 2:
-                if(players.at(input - 1)->getGrain() != 0)
+                if(players.at(input - 1)->getGrain() > 0)
                 {
                     players.at(input - 1)->modifyGrain(-1);
-                    players.at(player - 1)->modifyGrain(1);
-                    cout << players.at(player - 1)->getName() << " stole 1 grain from " << players.at(input - 1)->getName() << "!" << endl;
-                    break;
+                    cout << players.at(player)->getName() << " stole 1 grain from " << players.at(input - 1)->getName() << "!" << endl;
                 }
+                else
+                {
+                    cout << players.at(input - 1)->getName() << "does not have any grain. " << players.at(player)->getName() << " was gifted 1 grain." << endl;
+                }
+                players.at(player)->modifyGrain(1);
+                break;
             case 3:
-                if(players.at(input - 1)->getWool() != 0)
+                if(players.at(input - 1)->getWool() > 0)
                 {
                     players.at(input - 1)->modifyWool(-1);
-                    players.at(player - 1)->modifyWool(1);
-                    cout << players.at(player - 1)->getName() << " stole 1 wool from " << players.at(input - 1)->getName() << "!" << endl;
-                    break;
+                    cout << players.at(player)->getName() << " stole 1 wool from " << players.at(input - 1)->getName() << "!" << endl;
                 }
+                else
+                {
+                    cout << players.at(input - 1)->getName() << "does not have any wool. " << players.at(player)->getName() << " was gifted 1 wool." << endl;
+                }
+                players.at(player)->modifyWool(1);
+                break;
             case 4:
-                if(players.at(input - 1)->getOre() != 0)
+                if(players.at(input - 1)->getOre() > 0)
                 {
                     players.at(input - 1)->modifyOre(-1);
-                    players.at(player - 1)->modifyOre(1);
-                    cout << players.at(player - 1)->getName() << " stole 1 ore from " << players.at(input - 1)->getName() << "!" << endl;
-                    break;
+                    cout << players.at(player)->getName() << " stole 1 ore from " << players.at(input - 1)->getName() << "!" << endl;
                 }
+                else
+                {
+                    cout << players.at(input - 1)->getName() << "does not have any wool. " << players.at(player)->getName() << " was gifted 1 wool." << endl;
+                }
+                players.at(player)->modifyOre(1);
+                break;
         }
     }
 }
@@ -741,6 +769,10 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &d
                 takeTurn(players, island, deck, player, size);
             }
         }
+        else
+        {
+            takeTurn(players, island, deck, player, size);
+        }
     }
 }
 
@@ -762,7 +794,7 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     
     cin >> playerChoice;
     
-    while(playerChoice < 1 || playerChoice > players.size() || playerChoice == player)
+    while(playerChoice < 1 || playerChoice >= players.size() || playerChoice == (player + 1))
     {
         cout << "Invalid player choice." << endl;
         cout << "Who would you like to trade with?" << endl;
@@ -778,8 +810,8 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     }
     
     cout << "You currently have ";
-    resources(players, currentPlayer);
-    cout << "Which resource would you like to give " << players.at(playerChoice-1)->getName() << "?" << endl;
+    resources(players, player);
+    cout << "Which resource would you like to give " << players.at(playerChoice - 1)->getName() << "?" << endl;
     cout << "1: Wood" << endl;
     cout << "2: Brick" << endl;
     cout << "3: Grain" << endl;
@@ -1088,17 +1120,25 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
     
         // Buy
         if (choice == 1)
+        {
+            choice = 0;
             buyPrompt(players, island, deck, player, size);
+        }
         // Trade
         else if (choice == 2)
+        {
+            choice = 0;
             tradePrompt(players, island, player, size);
+        }
         //Swap three resources for one
         else if (choice == 3)
         {
+            choice = 0;
             //Implement code to swap resources
         }
         else
         {
+            choice = 0;
             player++;
             if(player >= players.size())
             {
@@ -1153,6 +1193,10 @@ int main()
     buildIsland(island, size, playerCount);
     //Shuffle the elements in the island vector to promote randomness
     shuffleIsland(island);
+    //Build development card deck
+    buildDeck(deck);
+    //Shuffle development card deck
+    shuffleDeck(deck);
     //Start first turn
     takeTurn(players, island, deck, currentPlayer, size); 
     return 0;
