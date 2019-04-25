@@ -280,7 +280,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -303,7 +302,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -326,7 +324,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -353,7 +350,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -376,7 +372,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -399,7 +394,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -426,7 +420,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -449,7 +442,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -472,7 +464,6 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
-                    takeTurn(players, island, deck, player, size);
                 }
                 else
                 {
@@ -483,6 +474,8 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                 }
             }
         }
+        renderIsland(island, size);
+        takeTurn(players, island, deck, player, size);
     }
 }
 
@@ -776,7 +769,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &d
     }
 }
 
-void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, int size)
+void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     int playerChoice, giveRsrc, giveAmt, recRsrc, recAmt = 0;
     bool done = false;
@@ -1087,14 +1080,23 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, int player, in
     }
 }
 
+void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
+{
+    if(players.at(player)->getWood() < 3 && players.at(player)->getBricks() < 3 && players.at(player)->getGrain() < 3 && players.at(player)->getWool() < 3 && players.at(player)->getOre() < 3)
+    {
+        cout << "You need at least three of one resource to swap." << endl;
+    }
+    else
+    {
+        
+    }
+    
+}
+
 int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
     while(players.at(player)->getVictoryPoints() < 10)
     {
-        //Show the island
-        renderIsland(island, size);
-        //Roll dice
-        diceRoll(players, island);
         //Display the current players name and show the number of resources they have
         cout << players.at(player)->getName() << "'s turn." << endl;
         resources(players, player);
@@ -1128,12 +1130,13 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
         else if (choice == 2)
         {
             choice = 0;
-            tradePrompt(players, island, player, size);
+            tradePrompt(players, island, deck, player, size);
         }
         //Swap three resources for one
         else if (choice == 3)
         {
             choice = 0;
+            swapResources(players, island, deck, player, size);
             //Implement code to swap resources
         }
         else
@@ -1144,6 +1147,10 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
             {
                 player = 0;
             }
+            //Show the island
+            renderIsland(island, size);
+            //Roll dice
+            diceRoll(players, island);
             takeTurn(players, island, deck, player, size);
         }
     }
@@ -1197,6 +1204,10 @@ int main()
     buildDeck(deck);
     //Shuffle development card deck
     shuffleDeck(deck);
+    //Show the island
+    renderIsland(island, size);
+    //Roll dice
+    diceRoll(players, island);
     //Start first turn
     takeTurn(players, island, deck, currentPlayer, size); 
     return 0;
