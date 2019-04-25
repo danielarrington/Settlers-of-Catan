@@ -1,9 +1,9 @@
 Done    1) Finish implementing development cards
 Done    2) Bug check buySettlement functionality
         3) Bug check trading functionality
-        4) Bug check buyCity functionality
+Done    4) Bug check buyCity functionality
         5) QoL and terminal output improvements
 Done    6) Modify child functions of takeTurn to allow for paramaters (players, island, deck, player, size)
 Done    7) Implement resource gains on dice rolls
-        8) Add functionality for swaping out 3 resources
+Done    8) Add functionality for swaping out 3 resources
         9) ??? Should we remove the warning when trying to trade a resource you don't have to another player?
