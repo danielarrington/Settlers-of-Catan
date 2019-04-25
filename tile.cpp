@@ -180,7 +180,7 @@ string cityTile::render(int line){
         case 3: return "| |_|_|_|_| |";
         case 4: return "| |_|-|-|_| |";
         case 5: 
-            ss2 << "|     " << owner / 10 << "     |";
+            ss2 << "| |   " << owner / 10 << "   | |";
             return ss2.str();
         case 6: return "|o|_|___|_|o|";
         default:

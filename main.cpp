@@ -281,6 +281,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -303,6 +304,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -325,6 +327,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -351,6 +354,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -373,6 +377,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -395,6 +400,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -421,6 +427,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -443,6 +450,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -465,6 +473,7 @@ void buySettlement(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     players.at(player)->modifyGrain(-1);
                     players.at(player)->modifyWool(-1);
                     players.at(player)->modifyOre(-1);
+                    players.at(player)->modifyVictoryPoints(1);
                 }
                 else
                 {
@@ -699,7 +708,7 @@ void buyCity(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
         island.at(index) = new cityTile((LandType)land, value, owner); 
         players.at(player)->modifyWood(-1);
         players.at(player)->modifyGrain(-3);
-        players.at(player - 1)->modifyVictoryPoints(1);
+        players.at(player)->modifyVictoryPoints(1);
         takeTurn(players, island, deck, player, size);
     }
 }
@@ -1155,6 +1164,7 @@ int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &dec
             takeTurn(players, island, deck, player, size);
         }
     }
+    cout << players.at(player)->getName() << " has " << players.at(player)->getVictoryPoints() << " victory points. " << players.at(player)->getName() << " wins!" << endl;
     return 0;
 }
 
