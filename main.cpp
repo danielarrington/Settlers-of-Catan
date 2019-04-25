@@ -877,7 +877,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                 case 1:
                     if (players.at(playerChoice-1)->getWood() < recAmt){
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
-                        break;
                     }
                     else if (giveRsrc == 1){
                         players.at(player)->modifyWood(-giveAmt);
@@ -885,7 +884,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyWood(giveAmt);
                         players.at(playerChoice-1)->modifyWood(-recAmt);
                         done = true;
-                        break;
                     }
                     else if (giveRsrc == 2){
                         players.at(player)->modifyWood(-giveAmt);
@@ -893,7 +891,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyWood(giveAmt);
                         players.at(playerChoice-1)->modifyBricks(-recAmt);
                         done = true;
-                        break;
                     }
                     else if (giveRsrc == 3){
                         players.at(player)->modifyWood(-giveAmt);
@@ -901,7 +898,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyWood(giveAmt);
                         players.at(playerChoice-1)->modifyGrain(-recAmt);
                         done = true;
-                        break;
                     }
                     else if (giveRsrc == 4){
                         players.at(player)->modifyWood(-giveAmt);
@@ -909,7 +905,6 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyWood(giveAmt);
                         players.at(playerChoice-1)->modifyWool(-recAmt);
                         done = true;
-                        break;
                     }
                     else if (giveRsrc == 5){
                         players.at(player)->modifyWood(-giveAmt);
@@ -917,12 +912,11 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyWood(giveAmt);
                         players.at(playerChoice-1)->modifyOre(-recAmt);
                         done = true;
-                        break;
                     }
+                    break;
                 case 2:
                     if (players.at(playerChoice-1)->getBricks() < recAmt){
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
-                        break;
                     }
                     else if (giveRsrc == 1){
                         players.at(player)->modifyBricks(-giveAmt);
@@ -959,10 +953,10 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyOre(-recAmt);
                         done = true;
                     }
+                    break;
                 case 3:
                     if (players.at(playerChoice-1)->getGrain() < recAmt){
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
-                        break;
                     }
                     else if (giveRsrc == 1){
                         players.at(player)->modifyGrain(-giveAmt);
@@ -999,10 +993,10 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyOre(-recAmt);
                         done = true;
                     }
+                    break;
                 case 4:
                     if (players.at(playerChoice-1)->getWool() < recAmt){
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
-                        break;
                     }
                     else if (giveRsrc == 1){
                         players.at(player)->modifyWool(-giveAmt);
@@ -1039,10 +1033,10 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyOre(-recAmt);
                         done = true;
                     }
+                    break;
                 case 5:
                     if (players.at(playerChoice-1)->getOre() < recAmt){
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
-                        break;
                     }
                     else if (giveRsrc == 1){
                         players.at(player)->modifyOre(-giveAmt);
@@ -1079,6 +1073,7 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         players.at(playerChoice-1)->modifyOre(-recAmt);
                         done = true;
                     }
+                    break;
             }
         } while(!done);
         resources(players, player);
