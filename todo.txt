@@ -7,3 +7,38 @@ Done    6) Modify child functions of takeTurn to allow for paramaters (players, 
 Done    7) Implement resource gains on dice rolls
 Done    8) Add functionality for swaping out 3 resources
         9) Determine if we want to shoot for bonus requirements
+        
+        
+        
+Program Requirements
+done    -The game board must be rendered in some fashion on the terminal
+done            -Each tile should display what land type they are
+done            -Each tile should display what number has been assigned to it
+done            -Each tile should display any settlements or cities are built on them and the owner of the settlement/city
+done    -The game board must be populated correctly
+done            -The user may determine how large they want their game board to be(rows by columns)
+done            -The game board should be randomly populated with differentland type tiles
+done            -Each tile should be assigned a number 2-12
+done    -Players must be initialized correctly
+done            -Each player’s resources and victory points should be properly tracked
+                -Each player should begin the game with 1 of each resource
+done            -Each player should begin the game with 1 settlement at a random location on the map
+done    -Turn order logic must be correctly implemented
+done            -Each turn should begin with a dice roll or 2 six-sided die
+done            -Each settlement/city on a land tile with a number matching the sum of the dice roll should generate the appropriate amount of the corresponding resource for the player that owns that tile
+done            -The player should be given the option to buy, trade, or end their turn and be able to repeat these actions as much as they would like during their turn
+done            -Turns should no longer continue to be taken when a player reaches 10 victory points
+done    -Settlements should be properly placed
+done            -Players should have to spend the appropriate amount of resources to purchase a settlement (1 wood,1 brick, 1 grain, 1 wool). This means these resources should be removed from the player when building a new settlement
+done            -Settlements should only be allowed to be placed on unowned tiles adjacent to tiles owned by that player(tiles that already contain one of that player’s settlements or cities)
+done            -Building a settlement should generate the player a victory point
+done    -Cities should be properly placed
+done            -Players should have to spend the appropriate amount of resources to purchase a city (2 ore, 3 grain). This means these resources should be removed from the player when building a new city
+done            -Cities should only be placed on tiles that already contain a settlement for that player
+done            -Building a city should generate the player a victory point
+        -Development cards should be properly handled
+done            -Development cards should be randomly shuffled at the beginning of each game
+                -When a player purchases a development card, the player gains whatever effect is on the card (gaining resource or victory points), and then that card is returned to the bottom of the development card deck
+done            -The deck should contain 20 cards. You may have multiples and create your own custom development cards, but the example listed in the “Game Rules” section must be implemented.
+        -Errors should be handled properly
+                -Any erroneous input caused by the user should be handled in sucha way that the game doesn’t crash, but also allows the user to correct their mistake (fore example, if the user attempts to build a settlement on a tile not adjacent to one of their other settlements or cities. The user should be given an error message and asked to re-input a valid location.)
