@@ -1262,13 +1262,110 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
 
 void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
+    int swpRsrc, recRsrc = 0;
+    
     if(players.at(player)->getWood() < 3 && players.at(player)->getBricks() < 3 && players.at(player)->getGrain() < 3 && players.at(player)->getWool() < 3 && players.at(player)->getOre() < 3)
     {
         cout << "You need at least three of one resource to swap." << endl;
     }
     else
     {
+        cout << "Which resource would you like to trade in?" << endl;
+        cout << "1: Wood" << endl;
+        cout << "2: Brick" << endl;
+        cout << "3: Grain" << endl;
+        cout << "4: Wool" << endl;
+        cout << "5: Ore" << endl;
+        cin >> swpRsrc;
         
+        if (swpRsrc < 1 || swpRsrc > 5){
+            cout << "Invaild response." << endl;
+            swapResources(players, island, deck, player, size);
+        }
+        
+        switch(swpRsrc){
+            case 1:
+                if(players.at(player)->getWood() >= 3){
+                    players.at(player)->modifyWood(-3);
+                    break;
+                }
+                else{
+                    cout << "You do not have enough of that resource to swap." << endl;
+                    swapResources(players, island, deck, player, size);
+                    break;
+                    }
+            case 2:
+                if(players.at(player)->getBricks() >= 3){
+                    players.at(player)->modifyBricks(-3);
+                    break;
+                }
+                else{
+                    cout << "You do not have enough of that resource to swap." << endl;
+                    swapResources(players, island, deck, player, size);
+                    break;
+                    }
+            case 3:
+                if(players.at(player)->getGrain() >= 3){
+                    players.at(player)->modifyGrain(-3);
+                    break;
+                }
+                else{
+                    cout << "You do not have enough of that resource to swap." << endl;
+                    swapResources(players, island, deck, player, size);
+                    break;
+                    }
+            case 4:
+                if(players.at(player)->getWool() >= 3){
+                    players.at(player)->modifyWool(-3);
+                    break;
+                }
+                else{
+                    cout << "You do not have enough of that resource to swap." << endl;
+                    swapResources(players, island, deck, player, size);
+                    break;
+                }
+            case 5:
+                if(players.at(player)->getWool() >= 3){
+                    players.at(player)->modifyWool(-3);
+                    break;
+                }
+                else{
+                    cout << "You do not have enough of that resource to swap." << endl;
+                    swapResources(players, island, deck, player, size);
+                    break;
+                }
+        }
+                
+        cout << "Which resource would you like to receive? " << endl;
+        cout << "1: Wood" << endl;
+        cout << "2: Brick" << endl;
+        cout << "3: Grain" << endl;
+        cout << "4: Wool" << endl;
+        cout << "5: Ore" << endl;
+        cin >> recRsrc;
+        
+        if (recRsrc < 1 || recRsrc > 5){
+            cout << "Invaild response." << endl;
+            swapResources(players, island, deck, player, size);
+        }
+        
+        switch(recRsrc){
+            case 1:
+                players.at(player)->modifyWood(1);
+                break;
+            case 2:
+                players.at(player)->modifyBricks(1);
+                break;
+            case 3:
+                players.at(player)->modifyGrain(1);
+                break;
+            case 4:
+                players.at(player)->modifyWool(1);
+                break;
+            case 5:
+                players.at(player)->modifyOre(1);
+                break;
+        }
     }
     
 }
