@@ -1255,6 +1255,7 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
     else
     {
         cout << "Which resource would you like to trade in?" << endl;
+        
         cout << "1: Wood" << endl;
         cout << "2: Brick" << endl;
         cout << "3: Grain" << endl;
@@ -1262,7 +1263,8 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
         cout << "5: Ore" << endl;
         cin >> swpRsrc;
         
-        if (swpRsrc < 1 || swpRsrc > 5){
+        if (swpRsrc < 1 || swpRsrc > 5)
+        {
             cout << "Invaild response." << endl;
             swapResources(players, island, deck, player, size);
         }
@@ -1351,7 +1353,6 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                 break;
         }
     }
-    
 }
 
 int takeTurn(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
