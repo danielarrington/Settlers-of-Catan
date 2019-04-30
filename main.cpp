@@ -764,6 +764,7 @@ void buyPrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &d
 
 void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
+    //Initialize variables that will store information to conduct trade
     int playerChoice, giveRsrc, giveAmt, recRsrc, recAmt = 0;
     bool done = false;
     char response;
@@ -1252,12 +1253,16 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
 
 void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*> &deck, int player, int size)
 {
+    //Initialize variables which will store the type of resources that
+    //the player selects
     int swpRsrc, recRsrc = 0;
     
+    //Check that player has at least 3 of a resource
     if(players.at(player)->getWood() < 3 && players.at(player)->getBricks() < 3 && players.at(player)->getGrain() < 3 && players.at(player)->getWool() < 3 && players.at(player)->getOre() < 3)
     {
         cout << "\t!You need at least three of one resource to swap!" << endl << endl;
     }
+    //If the player has enough of one resuorce
     else
     {
         cout << "\t|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|" << endl;
@@ -1270,63 +1275,76 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
         cout << "\t|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|" << endl;
         cin >> swpRsrc;
         
+        //Check that the input for the selected resource is valid
         if (swpRsrc < 1 || swpRsrc > 5){
             cout << "\t\tInvaild response." << endl;
             swapResources(players, island, deck, player, size);
         }
         
+        //Modify different properties of each player depending on the selected resource
         switch(swpRsrc){
             case 1:
+                //Ensure that the player has enough wood
                 if(players.at(player)->getWood() >= 3){
                     players.at(player)->modifyWood(-3);
                     break;
                 }
+                //Display error if player doesn't have enough wood
                 else{
                     cout << "\t!You do not have enough of that resource to swap!" << endl << endl;
                     swapResources(players, island, deck, player, size);
                     break;
                     }
             case 2:
+                //Ensure that the player has enough bricks
                 if(players.at(player)->getBricks() >= 3){
                     players.at(player)->modifyBricks(-3);
                     break;
                 }
+                //Display error if player doesn't have enough bricks
                 else{
                     cout << "\t!You do not have enough of that resource to swap!" << endl << endl;
                     swapResources(players, island, deck, player, size);
                     break;
                     }
             case 3:
+                //Ensure that the player has enough grain
                 if(players.at(player)->getGrain() >= 3){
                     players.at(player)->modifyGrain(-3);
                     break;
                 }
+                //Display error if player doesn't have enough grain
                 else{
                     cout << "\t!You do not have enough of that resource to swap!" << endl << endl;
                     swapResources(players, island, deck, player, size);
                     break;
                     }
             case 4:
+                //Ensure that the player has enough wool
                 if(players.at(player)->getWool() >= 3){
                     players.at(player)->modifyWool(-3);
                     break;
                 }
+                //Display error if player doesn't have enough wool
                 else{
                     cout << "\tYou do not have enough of that resource to swap." << endl;
                     swapResources(players, island, deck, player, size);
                     break;
                 }
             case 5:
+                //Ensure that the player has enough ore
                 if(players.at(player)->getOre() >= 3){
                     players.at(player)->modifyOre(-3);
                     break;
                 }
+                //Display error if player doesn't have enough ore
                 else{
                     cout << "\tYou do not have enough of that resource to swap." << endl;
                     swapResources(players, island, deck, player, size);
                     break;
                 }
         }
+        //Ask player what resource they would like to receive in exchange
         cout << "\t|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|" << endl;
         cout << "\t|Which resource would you like to receive?|" << endl;
         cout << "\t|                 1: Wood                 |" << endl;
@@ -1337,11 +1355,13 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
         cout << "\t|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|" << endl;
         cin >> recRsrc;
         
+        //Validate that the input is valid
         if (recRsrc < 1 || recRsrc > 5){
             cout << "\t\tInvaild response!" << endl;
             swapResources(players, island, deck, player, size);
         }
         
+        //Give the player one resource of their choice
         switch(recRsrc){
             case 1:
                 players.at(player)->modifyWood(1);
