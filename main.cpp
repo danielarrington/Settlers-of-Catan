@@ -1260,20 +1260,6 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
     }
     else
     {
-<<<<<<< HEAD
-        cout << "Which resource would you like to trade in?" << endl;
-        
-        cout << "1: Wood" << endl;
-        cout << "2: Brick" << endl;
-        cout << "3: Grain" << endl;
-        cout << "4: Wool" << endl;
-        cout << "5: Ore" << endl;
-        cin >> swpRsrc;
-        
-        if (swpRsrc < 1 || swpRsrc > 5)
-        {
-            cout << "Invaild response." << endl;
-=======
         cout << "\t|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|" << endl;
         cout << "\t|Which resource would you like to trade in?|" << endl;
         cout << "\t|                 1: Wood                  |" << endl;
@@ -1286,7 +1272,6 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
         
         if (swpRsrc < 1 || swpRsrc > 5){
             cout << "\t\tInvaild response." << endl;
->>>>>>> 89ce76369d3a0342e2d3c72fe00bad278aafe2ab
             swapResources(players, island, deck, player, size);
         }
         
@@ -1332,8 +1317,8 @@ void swapResources(vector<Player*> &players, vector<Tile*> &island, vector<Card*
                     break;
                 }
             case 5:
-                if(players.at(player)->getWool() >= 3){
-                    players.at(player)->modifyWool(-3);
+                if(players.at(player)->getOre() >= 3){
+                    players.at(player)->modifyOre(-3);
                     break;
                 }
                 else{
