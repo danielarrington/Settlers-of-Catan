@@ -1036,38 +1036,38 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
                     }
                     else if (giveRsrc == 1){
-                        players.at(player)->modifyWood(-giveAmt);
                         players.at(player)->modifyWood(recAmt);
-                        players.at(playerChoice-1)->modifyWood(giveAmt);
+                        players.at(player)->modifyWood(-giveAmt);
                         players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(playerChoice-1)->modifyWood(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 2){
-                        players.at(player)->modifyWood(-giveAmt);
-                        players.at(player)->modifyBricks(recAmt);
-                        players.at(playerChoice-1)->modifyWood(giveAmt);
-                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(player)->modifyWood(recAmt);
+                        players.at(player)->modifyBricks(-giveAmt);
+                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(playerChoice-1)->modifyBricks(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 3){
-                        players.at(player)->modifyWood(-giveAmt);
-                        players.at(player)->modifyGrain(recAmt);
-                        players.at(playerChoice-1)->modifyWood(giveAmt);
-                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(player)->modifyWood(recAmt);
+                        players.at(player)->modifyGrain(-giveAmt);
+                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(playerChoice-1)->modifyGrain(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 4){
-                        players.at(player)->modifyWood(-giveAmt);
-                        players.at(player)->modifyWool(recAmt);
-                        players.at(playerChoice-1)->modifyWood(giveAmt);
-                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(player)->modifyWood(recAmt);
+                        players.at(player)->modifyWool(-giveAmt);
+                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(playerChoice-1)->modifyWool(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 5){
-                        players.at(player)->modifyWood(-giveAmt);
-                        players.at(player)->modifyOre(recAmt);
-                        players.at(playerChoice-1)->modifyWood(giveAmt);
-                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(player)->modifyWood(recAmt);
+                        players.at(player)->modifyOre(-giveAmt);
+                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(playerChoice-1)->modifyOre(giveAmt);
                         done = true;
                     }
                     break;
@@ -1076,38 +1076,38 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade!" << endl;
                     }
                     else if (giveRsrc == 1){
-                        players.at(player)->modifyBricks(-giveAmt);
-                        players.at(player)->modifyWood(recAmt);
-                        players.at(playerChoice-1)->modifyBricks(giveAmt);
-                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(player)->modifyBricks(recAmt);
+                        players.at(player)->modifyWood(-giveAmt);
+                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(playerChoice-1)->modifyWood(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 2){
-                        players.at(player)->modifyBricks(-giveAmt);
                         players.at(player)->modifyBricks(recAmt);
-                        players.at(playerChoice-1)->modifyBricks(giveAmt);
+                        players.at(player)->modifyBricks(-giveAmt);
                         players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(playerChoice-1)->modifyBricks(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 3){
-                        players.at(player)->modifyBricks(-giveAmt);
-                        players.at(player)->modifyGrain(recAmt);
-                        players.at(playerChoice-1)->modifyBricks(giveAmt);
-                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(player)->modifyBricks(recAmt);
+                        players.at(player)->modifyGrain(-giveAmt);
+                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(playerChoice-1)->modifyGrain(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 4){
-                        players.at(player)->modifyBricks(-giveAmt);
-                        players.at(player)->modifyWool(recAmt);
-                        players.at(playerChoice-1)->modifyBricks(giveAmt);
-                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(player)->modifyBricks(recAmt);
+                        players.at(player)->modifyWool(-giveAmt);
+                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(playerChoice-1)->modifyWool(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 5){
-                        players.at(player)->modifyBricks(-giveAmt);
-                        players.at(player)->modifyOre(recAmt);
-                        players.at(playerChoice-1)->modifyBricks(giveAmt);
-                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(player)->modifyBricks(recAmt);
+                        players.at(player)->modifyOre(-giveAmt);
+                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(playerChoice-1)->modifyOre(giveAmt);
                         done = true;
                     }
                     break;
@@ -1116,38 +1116,38 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade!" << endl;
                     }
                     else if (giveRsrc == 1){
-                        players.at(player)->modifyGrain(-giveAmt);
-                        players.at(player)->modifyWood(recAmt);
-                        players.at(playerChoice-1)->modifyGrain(giveAmt);
-                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(player)->modifyGrain(recAmt);
+                        players.at(player)->modifyWood(-giveAmt);
+                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(playerChoice-1)->modifyWood(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 2){
-                        players.at(player)->modifyGrain(-giveAmt);
-                        players.at(player)->modifyBricks(recAmt);
-                        players.at(playerChoice-1)->modifyGrain(giveAmt);
-                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(player)->modifyGrain(recAmt);
+                        players.at(player)->modifyBricks(-giveAmt);
+                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(playerChoice-1)->modifyBricks(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 3){
-                        players.at(player)->modifyGrain(-giveAmt);
                         players.at(player)->modifyGrain(recAmt);
-                        players.at(playerChoice-1)->modifyGrain(giveAmt);
+                        players.at(player)->modifyGrain(-giveAmt);
                         players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(playerChoice-1)->modifyGrain(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 4){
-                        players.at(player)->modifyGrain(-giveAmt);
-                        players.at(player)->modifyWool(recAmt);
-                        players.at(playerChoice-1)->modifyGrain(giveAmt);
-                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(player)->modifyGrain(recAmt);
+                        players.at(player)->modifyWool(-giveAmt);
+                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(playerChoice-1)->modifyWool(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 5){
-                        players.at(player)->modifyGrain(-giveAmt);
-                        players.at(player)->modifyOre(recAmt);
-                        players.at(playerChoice-1)->modifyGrain(giveAmt);
-                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(player)->modifyGrain(recAmt);
+                        players.at(player)->modifyOre(-giveAmt);
+                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(playerChoice-1)->modifyOre(giveAmt);
                         done = true;
                     }
                     break;
@@ -1156,38 +1156,38 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade!" << endl;
                     }
                     else if (giveRsrc == 1){
-                        players.at(player)->modifyWool(-giveAmt);
-                        players.at(player)->modifyWood(recAmt);
-                        players.at(playerChoice-1)->modifyWool(giveAmt);
-                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(player)->modifyWool(recAmt);
+                        players.at(player)->modifyWood(-giveAmt);
+                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(playerChoice-1)->modifyWood(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 2){
-                        players.at(player)->modifyWool(-giveAmt);
-                        players.at(player)->modifyBricks(recAmt);
-                        players.at(playerChoice-1)->modifyWool(giveAmt);
-                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(player)->modifyWool(recAmt);
+                        players.at(player)->modifyBricks(-giveAmt);
+                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(playerChoice-1)->modifyBricks(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 3){
-                        players.at(player)->modifyWool(-giveAmt);
-                        players.at(player)->modifyGrain(recAmt);
-                        players.at(playerChoice-1)->modifyWool(giveAmt);
-                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(player)->modifyWool(recAmt);
+                        players.at(player)->modifyGrain(-giveAmt);
+                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(playerChoice-1)->modifyGrain(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 4){
-                        players.at(player)->modifyWool(-giveAmt);
                         players.at(player)->modifyWool(recAmt);
-                        players.at(playerChoice-1)->modifyWool(giveAmt);
+                        players.at(player)->modifyWool(-giveAmt);
                         players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(playerChoice-1)->modifyWool(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 5){
-                        players.at(player)->modifyWool(-giveAmt);
-                        players.at(player)->modifyOre(recAmt);
-                        players.at(playerChoice-1)->modifyWool(giveAmt);
-                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(player)->modifyWool(recAmt);
+                        players.at(player)->modifyOre(-giveAmt);
+                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(playerChoice-1)->modifyOre(giveAmt);
                         done = true;
                     }
                     break;
@@ -1196,38 +1196,38 @@ void tradePrompt(vector<Player*> &players, vector<Tile*> &island, vector<Card*> 
                         cout << players.at(playerChoice-1)->getName() << " does not have enough resources for that trade." << endl;
                     }
                     else if (giveRsrc == 1){
-                        players.at(player)->modifyOre(-giveAmt);
-                        players.at(player)->modifyWood(recAmt);
-                        players.at(playerChoice-1)->modifyOre(giveAmt);
-                        players.at(playerChoice-1)->modifyWood(-recAmt);
+                        players.at(player)->modifyOre(recAmt);
+                        players.at(player)->modifyWood(-giveAmt);
+                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(playerChoice-1)->modifyWood(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 2){
-                        players.at(player)->modifyOre(-giveAmt);
-                        players.at(player)->modifyBricks(recAmt);
-                        players.at(playerChoice-1)->modifyOre(giveAmt);
-                        players.at(playerChoice-1)->modifyBricks(-recAmt);
+                        players.at(player)->modifyOre(recAmt);
+                        players.at(player)->modifyBricks(-giveAmt);
+                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(playerChoice-1)->modifyBricks(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 3){
-                        players.at(player)->modifyOre(-giveAmt);
-                        players.at(player)->modifyGrain(recAmt);
-                        players.at(playerChoice-1)->modifyOre(giveAmt);
-                        players.at(playerChoice-1)->modifyGrain(-recAmt);
+                        players.at(player)->modifyOre(recAmt);
+                        players.at(player)->modifyGrain(-giveAmt);
+                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(playerChoice-1)->modifyGrain(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 4){
-                        players.at(player)->modifyOre(-giveAmt);
-                        players.at(player)->modifyWool(recAmt);
-                        players.at(playerChoice-1)->modifyOre(giveAmt);
-                        players.at(playerChoice-1)->modifyWool(-recAmt);
+                        players.at(player)->modifyOre(recAmt);
+                        players.at(player)->modifyWool(-giveAmt);
+                        players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(playerChoice-1)->modifyWool(giveAmt);
                         done = true;
                     }
                     else if (giveRsrc == 5){
-                        players.at(player)->modifyOre(-giveAmt);
                         players.at(player)->modifyOre(recAmt);
-                        players.at(playerChoice-1)->modifyOre(giveAmt);
+                        players.at(player)->modifyOre(-giveAmt);
                         players.at(playerChoice-1)->modifyOre(-recAmt);
+                        players.at(playerChoice-1)->modifyOre(giveAmt);
                         done = true;
                     }
                     break;
